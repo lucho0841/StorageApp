@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/StorageApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/StorageApp/app/src/main/res/drawable/shadow_background.xml" value="0.1" />
+        <entry key="..\:/StorageApp/app/src/main/res/layout/activity_inventario.xml" value="0.33" />
+        <entry key="..\:/StorageApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
+        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_inventarios.xml" value="0.20416666666666666" />
+        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_notifications.xml" value="0.20416666666666666" />
+        <entry key="..\:/StorageApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StorageApp">
         <activity
+            android:name=".InventarioActivity"
+            android:exported="false"
+            android:label="@string/title_activity_inventario" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
