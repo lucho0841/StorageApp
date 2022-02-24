@@ -1,6 +1,5 @@
-package com.example.storageapp;
+package com.example.storageapp.views;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,13 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.storageapp.R;
+import com.example.storageapp.views.InventarioActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Button btnInv = (Button) findViewById(R.id.btnInventarios);
         btnInv.setOnClickListener(new View.OnClickListener() {

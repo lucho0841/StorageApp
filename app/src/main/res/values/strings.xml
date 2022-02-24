@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Storage App</string>
     <string name="title_activity_inventario">InventarioActivity</string>
-    <string name="title_home">Home</string>
+    <string name="title_products">Productos</string>
     <string name="title_inventario">Inventario</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_categories">Categorias</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
