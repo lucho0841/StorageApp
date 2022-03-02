@@ -50,6 +50,7 @@
             android:id="@+id/btnEditProduct"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:backgroundTint="@color/red"
             android:background="@drawable/rounded_button"
             android:gravity="center_vertical|center_horizontal"
             app:icon="@drawable/ic_baseline_search_24"/>
