@@ -1,16 +1,26 @@
 package com.example.storageapp.model;
 
 public class ProductModel {
+    int productoId;
     int image;
     String nombre;
     String codigo;
     String precio;
 
-    public ProductModel(int image, String nombre, String codigo, String precio) {
+    public ProductModel(int productoId, int image, String nombre, String codigo, String precio) {
+        this.productoId = productoId;
         this.image = image;
         this.nombre = nombre;
         this.codigo = codigo;
         this.precio = precio;
+    }
+
+    public int getProductoId() {
+        return productoId;
+    }
+
+    public void setProductoId(int productoId) {
+        this.productoId = productoId;
     }
 
     public int getImage() {

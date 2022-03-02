@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.example.storageapp.R;
 import com.example.storageapp.databinding.ActivityInventarioBinding;
 import com.example.storageapp.fragments.CategoriesFragment;
-import com.example.storageapp.fragments.ProductsFragment;
+import com.example.storageapp.fragments.ReportsFragment;
 import com.example.storageapp.fragments.StorageFragment;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +33,7 @@ public class InventarioActivity extends AppCompatActivity {
                     ReplaceFragment(new StorageFragment());
                     break;
                 case R.id.navigation_product:
-                    ReplaceFragment(new ProductsFragment());
+                    ReplaceFragment(new ReportsFragment());
                     break;
                 case R.id.navigation_category:
                     ReplaceFragment(new CategoriesFragment());

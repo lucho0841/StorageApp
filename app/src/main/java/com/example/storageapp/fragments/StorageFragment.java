@@ -26,17 +26,8 @@ import java.util.ArrayList;
  */
 public class StorageFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
     ArrayList<ProductModel> productModels = new ArrayList<>();
     GridView gridView;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public StorageFragment() {
         // Required empty public constructor
@@ -46,8 +37,6 @@ public class StorageFragment extends Fragment {
     public static StorageFragment newInstance(String param1, String param2) {
         StorageFragment fragment = new StorageFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,10 +44,7 @@ public class StorageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
@@ -68,9 +54,9 @@ public class StorageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
         gridView = rootView.findViewById(R.id.grdInventario);
 
-        productModels.add(new ProductModel(R.drawable.tornillo, "Tornillo", "PR001", "200"));
-        productModels.add(new ProductModel(R.drawable.destornillador, "Destornillador tipo pala", "PR002", "2500"));
-        productModels.add(new ProductModel(R.drawable.wiring, "Cable duplex", "PR003", "6000"));
+        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "200"));
+        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "2500"));
+        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "6000"));
 
         GridAdapter gridAdapter = new GridAdapter(getContext(), productModels);
         gridView.setAdapter(gridAdapter);

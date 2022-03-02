@@ -8,8 +8,8 @@
 
     <item
         android:id="@+id/navigation_product"
-        android:icon="@drawable/ic_baseline_add_shopping_cart_24"
-        android:title="@string/title_products" />
+        android:icon="@drawable/ic_baseline_analytics_24"
+        android:title="@string/title_reports" />
 
     <item
         android:id="@+id/navigation_category"
