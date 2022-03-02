@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:gravity="start">
+    android:layout_margin="10px">
     
     <ImageView
         android:id="@+id/imgProducts"
@@ -13,7 +13,7 @@
         android:layout_gravity="center"/>
 
     <LinearLayout
-        android:layout_width="170dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_margin="20dp">
@@ -40,22 +40,22 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="end">
+        android:orientation="horizontal"
+        android:layout_gravity="center">
 
         <Button
             android:id="@+id/btnEditProduct"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:backgroundTint="@color/red"
+            android:layout_alignParentRight="true"
             android:background="@drawable/rounded_button"
-            android:gravity="center_vertical|center_horizontal"
-            app:icon="@drawable/ic_baseline_search_24"/>
+            android:backgroundTint="@color/red"
+            app:icon="@drawable/ic_baseline_search_24" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     
 

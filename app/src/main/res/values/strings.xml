@@ -1,7 +1,8 @@
 <resources>
     <string name="app_name">Storage App</string>
-    <string name="title_activity_inventario">InventarioActivity</string>
+    <string name="title_activity_inventario">StorageApp</string>
     <string name="title_products">Productos</string>
+    <string name="title_reports">Reportes</string>
     <string name="title_inventario">Inventario</string>
     <string name="title_categories">Categorias</string>
     <!-- TODO: Remove or change this placeholder text -->
