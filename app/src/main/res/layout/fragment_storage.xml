@@ -8,31 +8,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="filtros: "/>
-        <EditText
-            android:id="@+id/txtSearch"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:drawableRight="@drawable/ic_baseline_search_24"
-            android:textColor="@color/black"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            app:icon="@drawable/ic_baseline_delete_sweep_24"
-            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@color/black"

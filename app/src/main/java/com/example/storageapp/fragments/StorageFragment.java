@@ -2,44 +2,29 @@ package com.example.storageapp.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
+import android.widget.SearchView;
 
-import com.example.storageapp.GridAdapter;
+import com.example.storageapp.model.GridAdapter;
 import com.example.storageapp.R;
 import com.example.storageapp.model.ProductModel;
-import com.example.storageapp.views.InventarioActivity;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StorageFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StorageFragment extends Fragment {
 
     ArrayList<ProductModel> productModels = new ArrayList<>();
     GridView gridView;
-
-    public StorageFragment() {
-        // Required empty public constructor
-    }
-
-
-    public static StorageFragment newInstance(String param1, String param2) {
-        StorageFragment fragment = new StorageFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+    MenuInflater getMenuInflater;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,13 +45,6 @@ public class StorageFragment extends Fragment {
 
         GridAdapter gridAdapter = new GridAdapter(getContext(), productModels);
         gridView.setAdapter(gridAdapter);
-
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getContext(), "You clicked on " + productModels.get(i).getNombre() , Toast.LENGTH_LONG).show();
-            }
-        });
 
         return rootView;
     }
