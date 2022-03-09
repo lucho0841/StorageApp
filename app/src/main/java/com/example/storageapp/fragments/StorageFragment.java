@@ -1,10 +1,6 @@
 package com.example.storageapp.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.SearchView;
 
-import com.example.storageapp.model.GridAdapter;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.storageapp.R;
+import com.example.storageapp.model.GridAdapter;
 import com.example.storageapp.model.ProductModel;
 
 import java.util.ArrayList;
@@ -68,7 +67,7 @@ public class StorageFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 gridAdapter.getFilter().filter(s);
-                return true;
+                return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
