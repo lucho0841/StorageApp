@@ -25,9 +25,13 @@ public class StorageFragment extends Fragment {
     ArrayList<ProductModel> productModels = new ArrayList<>();
     GridView gridView;
     MenuInflater getMenuInflater;
+    GridAdapter gridAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "200"));
+        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "2500"));
+        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "6000"));
         super.onCreate(savedInstanceState);
 
     }
@@ -39,13 +43,34 @@ public class StorageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
         gridView = rootView.findViewById(R.id.grdInventario);
 
-        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "200"));
-        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "2500"));
-        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "6000"));
-
-        GridAdapter gridAdapter = new GridAdapter(getContext(), productModels);
+        gridAdapter = new GridAdapter(getContext(), productModels);
         gridView.setAdapter(gridAdapter);
 
+        setHasOptionsMenu(true);
+
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.search_filter_menu, menu);
+
+        MenuItem menuItem = menu.findItem(R.id.Search_filter);
+
+        SearchView searchView = (SearchView) menuItem.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                gridAdapter.getFilter().filter(s);
+                return true;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
