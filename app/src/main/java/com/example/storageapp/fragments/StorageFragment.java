@@ -28,9 +28,9 @@ public class StorageFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "200"));
-        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "2500"));
-        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "6000"));
+        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "$200.00"));
+        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "$2500.00"));
+        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "$6000.00"));
         super.onCreate(savedInstanceState);
 
     }

@@ -8,6 +8,8 @@
     android:orientation="vertical"
     android:gravity="center">
 
+
+
     <EditText
 
         android:id="@+id/Nombre_Producto"
@@ -49,7 +51,7 @@
             android:layout_height="wrap_content"
             android:text="Crear"
             android:layout_marginRight="5dp"
-            android:backgroundTint="@android:color/red"/>
+            android:backgroundTint="@color/red"/>
 
 
     </LinearLayout>

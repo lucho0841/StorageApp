@@ -63,15 +63,10 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
 
         imageProduct.setImageResource(filterProducts.get(position).getImage());
-        txtName.setText(filterProducts.get(position).getNombre());
-        txtCode.setText(filterProducts.get(position).getCodigo());
-        txtPrice.setText(filterProducts.get(position).getPrecio());
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context, "Aqui editaremos el producto " + filterProducts.get(position).getNombre() , Toast.LENGTH_LONG).show();
-            }
-        });
+        txtName.setText("Nombre: " + filterProducts.get(position).getNombre());
+        txtCode.setText("Código: " + filterProducts.get(position).getCodigo());
+        txtPrice.setText("Precio: " + filterProducts.get(position).getPrecio());
+        btnEditar.setOnClickListener(view -> Toast.makeText(context, "Aqui editaremos el producto " + filterProducts.get(position).getNombre() , Toast.LENGTH_LONG).show());
         return convertView;
     }
 

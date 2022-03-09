@@ -2,11 +2,13 @@ package com.example.storageapp.model;
 
 public class CategoryModel {
 
+    int codigoId;
     String codigo;
     String nombre;
     String descripcion;
 
-    public CategoryModel(String codigo, String nombre, String descripcion) {
+    public CategoryModel(String codigo, String nombre, String descripcion, int codigoId) {
+        this.codigoId = codigoId;
         this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;

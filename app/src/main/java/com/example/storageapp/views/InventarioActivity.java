@@ -1,6 +1,8 @@
 package com.example.storageapp.views;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -12,11 +14,13 @@ import com.example.storageapp.databinding.ActivityInventarioBinding;
 import com.example.storageapp.fragments.CategoriesFragment;
 import com.example.storageapp.fragments.ReportsFragment;
 import com.example.storageapp.fragments.StorageFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 public class InventarioActivity extends AppCompatActivity {
 
     private ActivityInventarioBinding binding;
+    FloatingActionButton fabOpenProduct;
 
 
     @Override
@@ -42,6 +46,16 @@ public class InventarioActivity extends AppCompatActivity {
                     break;
             }
             return true;
+        });
+
+        fabOpenProduct = (FloatingActionButton) findViewById(R.id.fab);
+
+        fabOpenProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(InventarioActivity.this, CreateProductActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
