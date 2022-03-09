@@ -1,34 +1,23 @@
 package com.example.storageapp.views;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.GridView;
-import android.widget.SearchView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.storageapp.R;
 import com.example.storageapp.databinding.ActivityInventarioBinding;
 import com.example.storageapp.fragments.CategoriesFragment;
 import com.example.storageapp.fragments.ReportsFragment;
 import com.example.storageapp.fragments.StorageFragment;
-import com.example.storageapp.model.GridAdapter;
-import com.example.storageapp.model.ProductModel;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import java.util.ArrayList;
 
 public class InventarioActivity extends AppCompatActivity {
 
     private ActivityInventarioBinding binding;
 
-    ArrayList<ProductModel> productModels = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

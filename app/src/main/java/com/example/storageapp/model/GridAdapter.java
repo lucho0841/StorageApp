@@ -16,24 +16,26 @@ import com.example.storageapp.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class GridAdapter extends BaseAdapter implements Filterable {
 
     TextView txtName, txtCode, txtPrice;
     Context context;
     List<ProductModel> productModels;
+    List<ProductModel> filterProducts;
+
     LayoutInflater inflater;
     Button btnEditar;
 
     public GridAdapter(Context context, ArrayList<ProductModel> productModels) {
         this.context = context;
         this.productModels = productModels;
+        this.filterProducts = productModels;
     }
 
     @Override
     public int getCount() {
-        return productModels.size();
+        return filterProducts.size();
     }
 
     @Override
@@ -60,14 +62,14 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         txtPrice = convertView.findViewById(R.id.txtPrice);
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
 
-        imageProduct.setImageResource(productModels.get(position).getImage());
-        txtName.setText(productModels.get(position).getNombre());
-        txtCode.setText(productModels.get(position).getCodigo());
-        txtPrice.setText(productModels.get(position).getPrecio());
+        imageProduct.setImageResource(filterProducts.get(position).getImage());
+        txtName.setText(filterProducts.get(position).getNombre());
+        txtCode.setText(filterProducts.get(position).getCodigo());
+        txtPrice.setText(filterProducts.get(position).getPrecio());
         btnEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Aqui editaremos el producto " + productModels.get(position).getNombre() , Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Aqui editaremos el producto " + filterProducts.get(position).getNombre() , Toast.LENGTH_LONG).show();
             }
         });
         return convertView;
@@ -87,7 +89,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
                     String searchStr = charSequence.toString().toLowerCase();
                     List<ProductModel> resultData = new ArrayList<>();
 
-                    for (ProductModel product: productModels){
+                    for (ProductModel product: filterProducts){
                         if (product.getNombre().toLowerCase().contains(searchStr) || product.getCodigo().toLowerCase().contains(searchStr)){
                             resultData.add(product);
                         }
@@ -100,11 +102,18 @@ public class GridAdapter extends BaseAdapter implements Filterable {
                 return filterResults;
             }
 
+
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-                productModels = (List<ProductModel>) filterResults.values;
-                notifyDataSetChanged();
+                if (filterResults.count > 0) {
+                    filterProducts = (ArrayList<ProductModel>) filterResults.values;
+                    notifyDataSetChanged();
+                } else {
+                    notifyDataSetInvalidated();
+                }
             }
+
+
         };
         return filter;
     }
