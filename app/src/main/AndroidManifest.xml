@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StorageApp">
         <activity
+            android:name=".views.NuevaCategoriaActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.InventarioActivity"
             android:exported="false"
             android:label="@string/title_activity_inventario" />
