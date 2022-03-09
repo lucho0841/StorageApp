@@ -80,7 +80,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
             protected FilterResults performFiltering(CharSequence charSequence) {
                 FilterResults filterResults = new FilterResults();
 
-                if (charSequence == null || charSequence.length() == 0){
+                if (charSequence == null || charSequence.equals("")){
                     filterResults.count = productModels.size();
                     filterResults.values = productModels;
                 } else {
@@ -88,7 +88,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
                     List<ProductModel> resultData = new ArrayList<>();
 
                     for (ProductModel product: productModels){
-                        if (product.getNombre().contains(searchStr) || product.getCodigo().contains(searchStr)){
+                        if (product.getNombre().toLowerCase().contains(searchStr) || product.getCodigo().toLowerCase().contains(searchStr)){
                             resultData.add(product);
                         }
 

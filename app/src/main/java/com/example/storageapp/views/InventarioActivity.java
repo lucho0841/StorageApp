@@ -1,5 +1,6 @@
 package com.example.storageapp.views;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,8 +29,6 @@ public class InventarioActivity extends AppCompatActivity {
     private ActivityInventarioBinding binding;
 
     ArrayList<ProductModel> productModels = new ArrayList<>();
-    GridView gridView;
-    GridAdapter gridAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +36,6 @@ public class InventarioActivity extends AppCompatActivity {
 
         binding = ActivityInventarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "200"));
-        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "2500"));
-        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "6000"));
-
-        gridAdapter = new GridAdapter(getBaseContext(), productModels);
 
         ReplaceFragment(new StorageFragment());
 
@@ -68,37 +61,5 @@ public class InventarioActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_filter_menu, menu);
-
-        MenuItem menuItem = menu.findItem(R.id.Search_filter);
-
-        SearchView searchView = (SearchView) menuItem.getActionView();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                gridAdapter.getFilter().filter(s);
-                return true;
-            }
-        });
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.Search_filter:
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }
