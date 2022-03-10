@@ -27,6 +27,10 @@ public class InventarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        String nombreCategoria = getIntent().getStringExtra("nombre");
+        Bundle datos = new Bundle();
+        datos.putString("nombre", nombreCategoria);
+
         binding = ActivityInventarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -42,7 +46,9 @@ public class InventarioActivity extends AppCompatActivity {
                     ReplaceFragment(new ReportsFragment());
                     break;
                 case R.id.navigation_category:
-                    ReplaceFragment(new CategoriesFragment());
+                    CategoriesFragment categoriesFragment = new CategoriesFragment();
+                    categoriesFragment.setArguments(datos);
+                    ReplaceFragment(categoriesFragment);
                     break;
             }
             return true;
@@ -57,6 +63,8 @@ public class InventarioActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     private void ReplaceFragment(Fragment fragment) {
