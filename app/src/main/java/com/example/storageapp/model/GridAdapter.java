@@ -1,6 +1,7 @@
 package com.example.storageapp.model;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.storageapp.EditProductActivity;
 import com.example.storageapp.R;
 
 import java.util.ArrayList;
@@ -61,12 +63,19 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         txtCode = convertView.findViewById(R.id.txtCodeProduct);
         txtPrice = convertView.findViewById(R.id.txtPrice);
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditProductActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
 
         imageProduct.setImageResource(filterProducts.get(position).getImage());
         txtName.setText("Nombre: " + filterProducts.get(position).getNombre());
         txtCode.setText("Código: " + filterProducts.get(position).getCodigo());
         txtPrice.setText("Precio: " + filterProducts.get(position).getPrecio());
-        btnEditar.setOnClickListener(view -> Toast.makeText(context, "Aqui editaremos el producto " + filterProducts.get(position).getNombre() , Toast.LENGTH_LONG).show());
         return convertView;
     }
 

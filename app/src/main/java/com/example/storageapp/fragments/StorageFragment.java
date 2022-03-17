@@ -1,5 +1,6 @@
 package com.example.storageapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -7,15 +8,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.storageapp.EditProductActivity;
 import com.example.storageapp.R;
 import com.example.storageapp.model.GridAdapter;
 import com.example.storageapp.model.ProductModel;
+import com.example.storageapp.views.CreateProductActivity;
+import com.example.storageapp.views.InventarioActivity;
 
 import java.util.ArrayList;
 
@@ -25,6 +30,7 @@ public class StorageFragment extends Fragment {
     GridView gridView;
     MenuInflater getMenuInflater;
     GridAdapter gridAdapter;
+    Button btnEditProduct;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -45,9 +51,11 @@ public class StorageFragment extends Fragment {
         gridAdapter = new GridAdapter(getContext(), productModels);
         gridView.setAdapter(gridAdapter);
 
+
         setHasOptionsMenu(true);
 
         return rootView;
+
     }
 
     @Override

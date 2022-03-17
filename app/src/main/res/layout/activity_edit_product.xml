@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -8,14 +8,23 @@
     android:orientation="vertical"
     android:gravity="center">
 
-
     <ImageView
+        android:id="@+id/imagenProduct"
         android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/imagenProduct"/>
+        android:layout_height="70dp"/>
+
+
+    <Button
+        android:id="@+id/btnEditImagenProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Editar Imagen"
+        android:layout_marginRight="5dp"
+        />
+
     <EditText
 
-        android:id="@+id/Nombre_Producto"
+        android:id="@+id/Nombre_Producto_Editado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Nombre de Producto"
@@ -23,21 +32,21 @@
 
     <EditText
 
-        android:id="@+id/Codigo_Producto"
+        android:id="@+id/Codigo_Producto_Editado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Código de Producto"
         android:textAlignment="center"/>
 
     <EditText
-        android:id="@+id/Cantidad_Producto"
+        android:id="@+id/Cantidad_Producto_Editado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Cantidad de Producto"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/Descripcion_Producto"
+        android:id="@+id/Descripcion_Producto_Editado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -48,18 +57,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-
         <Button
-            android:id="@+id/button_crear"
+            android:id="@+id/button_editar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crear"
+            android:text="Editar"
             android:layout_marginRight="5dp"
             />
-
-
     </LinearLayout>
-
-
 
 </LinearLayout>
