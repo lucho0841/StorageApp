@@ -19,7 +19,7 @@ public class EditProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_product);
-        imagen = findViewById(R.id.imagenProduct);
+        imagen = findViewById(R.id.imageProduct);
         btnEditImagenProduct = (Button) findViewById(R.id.btnEditImagenProduct);
         btnEditImagenProduct.setOnClickListener(new View.OnClickListener() {
             @Override
