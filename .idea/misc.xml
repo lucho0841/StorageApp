@@ -3,22 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/StorageApp/app/src/main/res/drawable/ic_baseline_delete_sweep_24.xml" value="0.167" />
-        <entry key="..\:/StorageApp/app/src/main/res/drawable/rounded_button.xml" value="0.167" />
-        <entry key="..\:/StorageApp/app/src/main/res/drawable/shadow_background.xml" value="0.1" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/activity_inventario.xml" value="0.25982905982905985" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_categories.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_create_categories.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_create_products.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_inventarios.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_notifications.xml" value="0.20416666666666666" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_products.xml" value="0.22" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_storage.xml" value="0.22" />
-        <entry key="..\:/StorageApp/app/src/main/res/layout/grid_item_inventarios.xml" value="0.25" />
-        <entry key="..\:/StorageApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_create_product.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_inventario.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
