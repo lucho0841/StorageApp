@@ -8,23 +8,53 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <TableLayout
+        android:id="@+id/tableL1"
+        android:layout_width="362dp"
+        android:layout_height="493dp">
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linearL1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtCategoryName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre categoría"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtCategoryDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción categoría"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="411dp"
         android:layout_height="wrap_content"
         android:gravity="center">
-
-        <TextView
-            android:id="@+id/txtNameCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre Categoria"/>
 
         <Button
             android:id="@+id/btnNuevaCategoria"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nueva categoría"
-            android:layout_alignParentBottom="true"/>
+            android:layout_alignParentBottom="true"
+            android:text="Nueva categoría" />
+
+
 
     </RelativeLayout>
 

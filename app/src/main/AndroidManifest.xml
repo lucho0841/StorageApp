@@ -11,12 +11,13 @@
         android:theme="@style/Theme.StorageApp">
         <activity
             android:name=".views.NuevaCategoriaActivity"
-            android:exported="false"
-            android:parentActivityName=".views.InventarioActivity"/>
+            android:parentActivityName=".views.InventarioActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".views.CreateProductActivity"
             android:exported="false"
-            android:label="@string/title_create_products"/>
+            android:label="@string/title_create_products" />
         <activity
             android:name=".views.InventarioActivity"
             android:exported="false"

@@ -2,6 +2,8 @@ package com.example.storageapp.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.storageapp.R;
+import com.example.storageapp.fragments.CategoriesFragment;
 
 public class NuevaCategoriaActivity extends AppCompatActivity {
 
-    EditText edtNombre, edtDesc;
+    EditText edtNombre;
+    EditText edtDesc;
     Button btnCrearCategoria;
 
     @Override
@@ -32,8 +36,10 @@ public class NuevaCategoriaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String valor = edtNombre.getText().toString();
+                String descripcion = edtDesc.getText().toString();
                 Intent intent = new Intent(NuevaCategoriaActivity.this, InventarioActivity.class);
                 intent.putExtra("nombre", valor);
+                intent.putExtra("descripcion", descripcion);
                 startActivity(intent);
                 finish();
             }

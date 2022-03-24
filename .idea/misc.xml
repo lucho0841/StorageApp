@@ -36,10 +36,11 @@
         <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/activity_inventario.xml" value="0.159375" />
         <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/activity_nueva_categoria.xml" value="0.21349862258953167" />
-        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/fragment_categories.xml" value="0.11614583333333334" />
+        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/activity_test.xml" value="0.2341485507246377" />
+        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/fragment_categories.xml" value="0.264" />
         <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/fragment_reports.xml" value="0.13645833333333332" />
-        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/fragment_storage.xml" value="0.176" />
-        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/grid_item_inventarios.xml" value="0.176" />
+        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/fragment_storage.xml" value="0.264" />
+        <entry key="..\:/Users/felip/U/StorageApp/StorageApp/app/src/main/res/layout/grid_item_inventarios.xml" value="0.264" />
       </map>
     </option>
   </component>
