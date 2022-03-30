@@ -12,34 +12,6 @@
         android:id="@+id/tableL1"
         android:layout_width="362dp"
         android:layout_height="493dp">
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/linearL1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="15dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/txtCategoryName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre categoría"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/txtCategoryDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Descripción categoría"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </TableRow>
     </TableLayout>
 
     <RelativeLayout

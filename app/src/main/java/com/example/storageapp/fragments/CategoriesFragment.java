@@ -16,6 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.storageapp.Dataholder;
 import com.example.storageapp.R;
 import com.example.storageapp.model.CategoryModel;
 import com.example.storageapp.views.NuevaCategoriaActivity;
@@ -32,7 +33,8 @@ public class CategoriesFragment extends Fragment {
 
     private String dato;
     private String desc;
-    private ArrayList<CategoryModel> categories;
+    private ArrayList<CategoryModel> categories = Dataholder.getInstance().categories;
+    //private ArrayList<CategoryModel> categories = new ArrayList<CategoryModel>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,12 +43,12 @@ public class CategoriesFragment extends Fragment {
         if (getArguments() != null) {
             dato =  getArguments().getString("nombre");
             desc =  getArguments().getString("descripcion");
+            // System.out.println("este es el nombre"+dato+" y esta es la descripcion"+desc);
         }
 
         if (dato != null && desc != null) {
             CategoryModel categoryModel = new CategoryModel(dato, desc);
             categories.add(categoryModel);
-            int size = categories.size();
         }
 
     }
@@ -61,19 +63,19 @@ public class CategoriesFragment extends Fragment {
 
        // if (categories != null) {
 
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < categories.size(); i++) {
                 LinearLayout linearLayout = new LinearLayout(getActivity());
                 linearLayout.setPadding(15,25,15,25);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 TableRow tableRow = new TableRow(getActivity());
                 TextView txtNombre1 = new TextView(getActivity());
                 TextView txtDesc1 = new TextView(getActivity());
-                //txtNombre1.setText(categories.get(i).getNombre());
-                txtNombre1.setText(dato);
+                txtNombre1.setText(categories.get(i).getNombre());
+                //txtNombre1.setText(dato);
                 txtNombre1.setTextSize(16);
                 txtNombre1.setTypeface(Typeface.DEFAULT_BOLD);
-                // txtDesc1.setText(categories.get(i).getDescripcion());
-                txtDesc1.setText(desc);
+                txtDesc1.setText(categories.get(i).getDescripcion());
+                // txtDesc1.setText(desc);
                 txtDesc1.setTextSize(16);
 
                 linearLayout.addView(txtNombre1);
@@ -84,12 +86,12 @@ public class CategoriesFragment extends Fragment {
        // }
 
 
-
+/*
         txtNombre = (TextView) rootView.findViewById(R.id.txtCategoryName);
         txtNombre.setText(dato);
         txtDescripcion = (TextView) rootView.findViewById(R.id.txtCategoryDescription);
         txtDescripcion.setText(desc);
-
+*/
         //Toast.makeText(getContext(), "nombre de la categoria: " + dato, Toast.LENGTH_LONG).show();
         Toast.makeText(getContext(), "desc de la categoria: " + desc, Toast.LENGTH_LONG).show();
 
