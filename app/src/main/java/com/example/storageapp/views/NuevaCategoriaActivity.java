@@ -17,6 +17,7 @@ import com.example.storageapp.fragments.CategoriesFragment;
 
 public class NuevaCategoriaActivity extends AppCompatActivity {
 
+    // Hacer validaciones en este archivo
     EditText edtNombre;
     EditText edtDesc;
     Button btnCrearCategoria;

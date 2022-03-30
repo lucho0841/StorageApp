@@ -17,9 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.storageapp.R;
+import com.example.storageapp.model.CategoryModel;
 import com.example.storageapp.views.NuevaCategoriaActivity;
 
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class CategoriesFragment extends Fragment {
 
@@ -29,6 +32,7 @@ public class CategoriesFragment extends Fragment {
 
     private String dato;
     private String desc;
+    private ArrayList<CategoryModel> categories;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,12 @@ public class CategoriesFragment extends Fragment {
         if (getArguments() != null) {
             dato =  getArguments().getString("nombre");
             desc =  getArguments().getString("descripcion");
+        }
+
+        if (dato != null && desc != null) {
+            CategoryModel categoryModel = new CategoryModel(dato, desc);
+            categories.add(categoryModel);
+            int size = categories.size();
         }
 
     }
@@ -49,24 +59,31 @@ public class CategoriesFragment extends Fragment {
 
         TableLayout tableLayout = (TableLayout) rootView.findViewById(R.id.tableL1);
 
-        for (int i = 0; i < 5; i++) {
-        LinearLayout linearLayout = new LinearLayout(getActivity());
-        linearLayout.setPadding(15,25,15,25);
-        linearLayout.setOrientation(LinearLayout.VERTICAL);
-        TableRow tableRow = new TableRow(getActivity());
-        TextView txtNombre1 = new TextView(getActivity());
-        TextView txtDesc1 = new TextView(getActivity());
-        txtNombre1.setText(dato);
-        txtNombre1.setTextSize(16);
-        txtNombre1.setTypeface(Typeface.DEFAULT_BOLD);
-        txtDesc1.setText(desc);
-        txtDesc1.setTextSize(16);
+       // if (categories != null) {
 
-        linearLayout.addView(txtNombre1);
-        linearLayout.addView(txtDesc1);
-        tableRow.addView(linearLayout);
-        tableLayout.addView(tableRow);
-        }
+            for (int i = 0; i < 5; i++) {
+                LinearLayout linearLayout = new LinearLayout(getActivity());
+                linearLayout.setPadding(15,25,15,25);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                TableRow tableRow = new TableRow(getActivity());
+                TextView txtNombre1 = new TextView(getActivity());
+                TextView txtDesc1 = new TextView(getActivity());
+                //txtNombre1.setText(categories.get(i).getNombre());
+                txtNombre1.setText(dato);
+                txtNombre1.setTextSize(16);
+                txtNombre1.setTypeface(Typeface.DEFAULT_BOLD);
+                // txtDesc1.setText(categories.get(i).getDescripcion());
+                txtDesc1.setText(desc);
+                txtDesc1.setTextSize(16);
+
+                linearLayout.addView(txtNombre1);
+                linearLayout.addView(txtDesc1);
+                tableRow.addView(linearLayout);
+                tableLayout.addView(tableRow);
+            }
+       // }
+
+
 
         txtNombre = (TextView) rootView.findViewById(R.id.txtCategoryName);
         txtNombre.setText(dato);

@@ -14,6 +14,13 @@ public class CategoryModel {
         this.descripcion = descripcion;
     }
 
+    public CategoryModel(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+
+    public CategoryModel() {}
+
     public String getCodigo() {
         return codigo;
     }
