@@ -2,8 +2,6 @@ package com.example.storageapp.views;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,13 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.storageapp.R;
-import com.example.storageapp.fragments.CategoriesFragment;
 
 public class NuevaCategoriaActivity extends AppCompatActivity {
 
     // Hacer validaciones en este archivo
-    EditText edtNombre;
-    EditText edtDesc;
+    EditText edtNombreNuevaCat;
+    EditText edtDescNuevaCat;
     Button btnCrearCategoria;
 
     @Override
@@ -29,18 +26,18 @@ public class NuevaCategoriaActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        edtNombre = (EditText) findViewById(R.id.edtNombreCategoria);
-        edtDesc = (EditText) findViewById(R.id.edtDescCategoria);
+        edtNombreNuevaCat = (EditText) findViewById(R.id.edtNombreCategoria);
+        edtDescNuevaCat = (EditText) findViewById(R.id.edtDescCategoria);
         btnCrearCategoria = (Button) findViewById(R.id.btnCrearCategoria);
 
         btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String valor = edtNombre.getText().toString();
-                String descripcion = edtDesc.getText().toString();
+                String nombre = edtNombreNuevaCat.getText().toString();
+                String descripcion = edtDescNuevaCat.getText().toString();
                 Intent intent = new Intent(NuevaCategoriaActivity.this, InventarioActivity.class);
-                intent.putExtra("nombre", valor);
-                intent.putExtra("descripcion", descripcion);
+                intent.putExtra("nombreCategoria", nombre);
+                intent.putExtra("descripcionCategoria", descripcion);
                 startActivity(intent);
                 finish();
             }
