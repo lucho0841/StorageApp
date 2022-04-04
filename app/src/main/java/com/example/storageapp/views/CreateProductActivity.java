@@ -19,6 +19,8 @@ public class CreateProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_product);
 
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
