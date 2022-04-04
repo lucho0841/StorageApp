@@ -26,7 +26,7 @@
 
     <EditText
 
-        android:id="@+id/Nombre_Producto_Editado"
+        android:id="@+id/edtNombreProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Nombre de Producto"
@@ -34,21 +34,27 @@
 
     <EditText
 
-        android:id="@+id/Codigo_Producto_Editado"
+        android:id="@+id/edtCodigoProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Código de Producto"
         android:textAlignment="center"/>
 
     <EditText
-        android:id="@+id/Cantidad_Producto_Editado"
+        android:id="@+id/edtPrecioProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Precio de Producto"
+        android:textAlignment="center" />
+    <EditText
+        android:id="@+id/edtCantidadProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Cantidad de Producto"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/Descripcion_Producto_Editado"
+        android:id="@+id/edtDescripcionProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 

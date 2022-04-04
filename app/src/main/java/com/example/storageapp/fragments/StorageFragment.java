@@ -1,6 +1,5 @@
 package com.example.storageapp.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,12 +14,9 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.storageapp.EditProductActivity;
 import com.example.storageapp.R;
 import com.example.storageapp.model.GridAdapter;
 import com.example.storageapp.model.ProductModel;
-import com.example.storageapp.views.CreateProductActivity;
-import com.example.storageapp.views.InventarioActivity;
 
 import java.util.ArrayList;
 
@@ -34,9 +30,9 @@ public class StorageFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "$200.00"));
-        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "$2500.00"));
-        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "$6000.00"));
+        productModels.add(new ProductModel(1, R.drawable.tornillo, "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble"));
+        productModels.add(new ProductModel(2, R.drawable.destornillador, "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro"));
+        productModels.add(new ProductModel(3, R.drawable.wiring, "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones."));
         super.onCreate(savedInstanceState);
 
     }

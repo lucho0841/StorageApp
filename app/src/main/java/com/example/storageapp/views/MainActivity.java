@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getBaseContext(), InventarioActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StorageApp">
         <activity
-            android:name=".EditProductActivity"
+            android:name=".views.EditProductActivity"
             android:exported="false" />
         <activity
             android:name=".views.NuevaCategoriaActivity"

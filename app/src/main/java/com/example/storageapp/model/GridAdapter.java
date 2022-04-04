@@ -11,9 +11,8 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.storageapp.EditProductActivity;
+import com.example.storageapp.views.EditProductActivity;
 import com.example.storageapp.R;
 
 import java.util.ArrayList;
@@ -63,19 +62,28 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         txtCode = convertView.findViewById(R.id.txtCodeProduct);
         txtPrice = convertView.findViewById(R.id.txtPrice);
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
-        btnEditar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, EditProductActivity.class);
-                context.startActivity(intent);
-
-            }
-        });
 
         imageProduct.setImageResource(filterProducts.get(position).getImage());
         txtName.setText("Nombre: " + filterProducts.get(position).getNombre());
         txtCode.setText("Código: " + filterProducts.get(position).getCodigo());
         txtPrice.setText("Precio: " + filterProducts.get(position).getPrecio());
+
+        btnEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EditProductActivity.class);
+                intent.putExtra("idProducto", filterProducts.get(position).getProductoId());
+                intent.putExtra("name", filterProducts.get(position).getNombre());
+                intent.putExtra("codigo", filterProducts.get(position).getCodigo());
+                intent.putExtra("precio", filterProducts.get(position).getPrecio());
+                intent.putExtra("imagen", filterProducts.get(position).getImage());
+                intent.putExtra("cantidad", filterProducts.get(position).getCantidad());
+                intent.putExtra("descripcion", filterProducts.get(position).getDescripcion());
+
+                context.startActivity(intent);
+
+            }
+        });
         return convertView;
     }
 
