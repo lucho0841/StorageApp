@@ -14,7 +14,9 @@ import com.example.storageapp.R;
 
 public class NuevaCategoriaActivity extends AppCompatActivity {
 
-    EditText edtNombre, edtDesc;
+    // Hacer validaciones en este archivo
+    EditText edtNombreNuevaCat;
+    EditText edtDescNuevaCat;
     Button btnCrearCategoria;
 
     @Override
@@ -24,16 +26,18 @@ public class NuevaCategoriaActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        edtNombre = (EditText) findViewById(R.id.edtNombreCategoria);
-        edtDesc = (EditText) findViewById(R.id.edtDescCategoria);
+        edtNombreNuevaCat = (EditText) findViewById(R.id.edtNombreCategoria);
+        edtDescNuevaCat = (EditText) findViewById(R.id.edtDescCategoria);
         btnCrearCategoria = (Button) findViewById(R.id.btnCrearCategoria);
 
         btnCrearCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String valor = edtNombre.getText().toString();
+                String nombre = edtNombreNuevaCat.getText().toString();
+                String descripcion = edtDescNuevaCat.getText().toString();
                 Intent intent = new Intent(NuevaCategoriaActivity.this, InventarioActivity.class);
-                intent.putExtra("nombre", valor);
+                intent.putExtra("nombreCategoria", nombre);
+                intent.putExtra("descripcionCategoria", descripcion);
                 startActivity(intent);
                 finish();
             }

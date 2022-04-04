@@ -27,9 +27,11 @@ public class InventarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String nombreCategoria = getIntent().getStringExtra("nombre");
+        String nombreCategoria = getIntent().getStringExtra("nombreCategoria");
+        String descripcionCategoria = getIntent().getStringExtra("descripcionCategoria");
         Bundle datos = new Bundle();
-        datos.putString("nombre", nombreCategoria);
+        datos.putString("nombreCategoria", nombreCategoria);
+        datos.putString("descripcionCategoria", descripcionCategoria);
 
         binding = ActivityInventarioBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
