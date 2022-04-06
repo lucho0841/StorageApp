@@ -17,9 +17,10 @@ import com.example.storageapp.R;
 
 public class EditProductActivity extends AppCompatActivity {
 
+    EditText edtNombreProducto, edtCodigoProducto, edtPrecioProducto, edtDescripcionProducto, edtCantidadProducto;
     ImageView imagen;
-    Button btnEditImagenProduct;
-    String nombre, codigo, precio, descripcion, cantidad;
+    Button btnEditImagenProduct, btnEditarProducto;
+    String nombre, codigo, precio, descripcion, cantidad, nombreProductoEdt, codigoProductoEdt, precioProductoEdt, descripcionProductoEdt, cantidadProductoEdt;
     int imagenProd, idProd;
     EditText edtNombre, edtCodigo, edtPrecio, edtCantidad, edtDescripcion;
 
@@ -51,7 +52,7 @@ public class EditProductActivity extends AppCompatActivity {
         edtDescripcion.setText(descripcion, TextView.BufferType.EDITABLE);
         imagen.setImageResource(imagenProd);
 
-        btnEditImagenProduct = (Button) findViewById(R.id.btnEditImagenProduct);
+        btnEditImagenProduct = (Button) findViewById(R.id.btnEditarImagenProducto);
         btnEditImagenProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +63,28 @@ public class EditProductActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/");
                 startActivityForResult(intent.createChooser(intent, "Seleccione la Aplicación"), 10);
+            }
+        });
+
+        btnEditarProducto = (Button) findViewById(R.id.btnEditarProducto);
+        btnEditarProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                edtNombreProducto = (EditText) findViewById(R.id.edtNombreProducto);
+                nombreProductoEdt = edtNombreProducto.getText().toString();
+
+                edtCodigoProducto = (EditText) findViewById(R.id.edtCodigoProducto);
+                codigoProductoEdt = edtCodigoProducto.getText().toString();
+
+                edtPrecioProducto = (EditText) findViewById(R.id.edtPrecioProducto);
+                precioProductoEdt = edtPrecioProducto.getText().toString();
+
+                edtCantidadProducto = (EditText) findViewById(R.id.edtCantidadProducto);
+                cantidadProductoEdt = edtCantidadProducto.getText().toString();
+
+                edtDescripcionProducto = (EditText) findViewById(R.id.edtDescripcionProducto);
+                descripcionProductoEdt = edtDescripcionProducto.getText().toString();
+
             }
         });
 
