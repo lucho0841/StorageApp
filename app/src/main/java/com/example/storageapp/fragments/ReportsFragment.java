@@ -1,5 +1,6 @@
 package com.example.storageapp.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,21 +8,25 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.storageapp.R;
-import com.github.mikephil.charting.charts.LineChart;
+import com.example.storageapp.controller.DataShare;
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 public class ReportsFragment extends Fragment {
 
-    LineChart lineChart;
+    BarChart barChart;
+    String[] xValues = {};
+    int productoId, valorProducto;
 
     public ReportsFragment() {
         // Required empty public constructor
@@ -37,25 +42,24 @@ public class ReportsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reports, container, false);
 
-        lineChart = (LineChart) rootView.findViewById(R.id.lineChart);
+        //Toast.makeText(getContext(), "Productos: " + gridProducts, Toast.LENGTH_LONG).show();
 
-        ArrayList<Entry> resultados = new ArrayList<>();
-        resultados.add(new Entry(2014, 420));
-        resultados.add(new Entry(2015, 589));
-        resultados.add(new Entry(2016, 700));
-        resultados.add(new Entry(2017, 205));
-        resultados.add(new Entry(2018, 490));
-        resultados.add(new Entry(2019, 999));
-        resultados.add(new Entry(2020, 120));
+        barChart = (BarChart) rootView.findViewById(R.id.barChart);
 
-        LineDataSet lineDataSet = new LineDataSet(resultados, "Resultados");
-        lineDataSet.setColor(R.color.red);
-        lineDataSet.setValueTextColor(R.color.black);
-        lineDataSet.setValueTextSize(16f);
+        ArrayList<BarEntry> productos = new ArrayList<>();
+        productos.add(new BarEntry(1, 420));
+        productos.add(new BarEntry(2, 589));
+        productos.add(new BarEntry(3, 700));
 
-        LineData lineData = new LineData(lineDataSet);
+        BarDataSet barDataSet = new BarDataSet(productos, "Productos ordenados por precio");
+        barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+        barDataSet.setValueTextColor(Color.BLACK);
+        barDataSet.setValueTextSize(16f);
 
-        lineChart.setData(lineData);
+        BarData barData = new BarData(barDataSet);
+        barChart.setFitBars(true);
+        barChart.setData(barData);
+        barChart.animateY(2000);
 
         return rootView;
     }

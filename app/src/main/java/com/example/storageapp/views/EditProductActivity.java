@@ -1,7 +1,9 @@
 package com.example.storageapp.views;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,15 +16,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.storageapp.R;
+import com.example.storageapp.controller.UriResources;
 
 public class EditProductActivity extends AppCompatActivity {
 
     EditText edtNombreProducto, edtCodigoProducto, edtPrecioProducto, edtDescripcionProducto, edtCantidadProducto;
     ImageView imagen;
-    Button btnEditImagenProduct, btnEditarProducto;
-    String nombre, codigo, precio, descripcion, cantidad, nombreProductoEdt, codigoProductoEdt, precioProductoEdt, descripcionProductoEdt, cantidadProductoEdt;
-    int imagenProd, idProd;
+    Button btnEditImagenProduct, btnEditarProducto, btnEliminarProducto;
+    String nombre, codigo, precio, descripcion, cantidad, nombreProductoEdt, codigoProductoEdt, precioProductoEdt, descripcionProductoEdt, imagenProd, valor;
+    int idProd, cantidadProductoEdt, codeImageProducto;
     EditText edtNombre, edtCodigo, edtPrecio, edtCantidad, edtDescripcion;
+    Boolean isDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +36,7 @@ public class EditProductActivity extends AppCompatActivity {
         nombre = getIntent().getStringExtra("name");
         codigo = getIntent().getStringExtra("codigo");
         precio = getIntent().getStringExtra("precio");
-        imagenProd = getIntent().getIntExtra("imagen", 0);
+        imagenProd = getIntent().getStringExtra("imagenActual");
         cantidad = String.valueOf(getIntent().getIntExtra("cantidad", 0));
         descripcion = getIntent().getStringExtra("descripcion");
 
@@ -50,7 +54,7 @@ public class EditProductActivity extends AppCompatActivity {
         edtPrecio.setText(precio, TextView.BufferType.EDITABLE);
         edtCantidad.setText(cantidad, TextView.BufferType.EDITABLE);
         edtDescripcion.setText(descripcion, TextView.BufferType.EDITABLE);
-        imagen.setImageResource(imagenProd);
+        imagen.setImageURI(Uri.parse(imagenProd));
 
         btnEditImagenProduct = (Button) findViewById(R.id.btnEditarImagenProducto);
         btnEditImagenProduct.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +67,36 @@ public class EditProductActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/");
                 startActivityForResult(intent.createChooser(intent, "Seleccione la Aplicación"), 10);
+            }
+        });
+
+        btnEliminarProducto = (Button) findViewById(R.id.btnEliminarProducto);
+        btnEliminarProducto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(EditProductActivity.this);
+                alertDialog.setTitle("Aviso!")
+                        .setIcon(R.drawable.ic_baseline_info_24)
+                        .setMessage("¿Está seguro que desea Eliminar el Producto?")
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(EditProductActivity.this, InventarioActivity.class);
+                                intent.putExtra("productoIdDelete", idProd);
+                                isDelete = true;
+                                intent.putExtra("isDelete", isDelete);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Toast.makeText(EditProductActivity.this, "Continua!", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
 
@@ -80,21 +114,34 @@ public class EditProductActivity extends AppCompatActivity {
                 precioProductoEdt = edtPrecioProducto.getText().toString();
 
                 edtCantidadProducto = (EditText) findViewById(R.id.edtCantidadProducto);
-                cantidadProductoEdt = edtCantidadProducto.getText().toString();
+                cantidadProductoEdt = Integer.parseInt(edtCantidadProducto.getText().toString());
 
                 edtDescripcionProducto = (EditText) findViewById(R.id.edtDescripcionProducto);
                 descripcionProductoEdt = edtDescripcionProducto.getText().toString();
 
+                Intent intent = new Intent(EditProductActivity.this, InventarioActivity.class);
+                intent.putExtra("nombreProducto", nombreProductoEdt);
+                intent.putExtra("codigoProducto", codigoProductoEdt);
+                intent.putExtra("precioProducto", precioProductoEdt);
+                intent.putExtra("cantidadProducto", cantidadProductoEdt);
+                intent.putExtra("descripcionProducto", descripcionProductoEdt);
+                intent.putExtra("idProducto", idProd);
+                intent.putExtra("uriImage", valor);
+                intent.putExtra("editValidate", true);
+                startActivity(intent);
+                finish();
             }
         });
 
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             Uri path = data.getData();
+            valor = UriResources.ObtenerUri(path);
             imagen.setImageURI(path);
         }
     }

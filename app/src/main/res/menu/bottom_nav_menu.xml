@@ -7,7 +7,7 @@
         android:title="@string/title_inventario" />
 
     <item
-        android:id="@+id/navigation_product"
+        android:id="@+id/navigation_reports"
         android:icon="@drawable/ic_baseline_analytics_24"
         android:title="@string/title_reports" />
 

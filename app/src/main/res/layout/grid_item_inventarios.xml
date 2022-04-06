@@ -55,7 +55,7 @@
             android:layout_alignParentRight="true"
             android:background="@drawable/rounded_button"
             android:backgroundTint="@color/red"
-            app:icon="@drawable/ic_baseline_search_24" />
+            app:icon="@drawable/ic_baseline_edit_24" />
 
     </RelativeLayout>
 

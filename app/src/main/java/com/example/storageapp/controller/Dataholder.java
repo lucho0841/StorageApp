@@ -1,4 +1,4 @@
-package com.example.storageapp;
+package com.example.storageapp.controller;
 
 import com.example.storageapp.model.CategoryModel;
 
