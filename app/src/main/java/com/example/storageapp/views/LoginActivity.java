@@ -2,6 +2,7 @@ package com.example.storageapp.views;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import org.w3c.dom.Text;
 
@@ -27,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edtCorreo, edtPass;
     TextView txtResetPass;
     ProgressBar progressBarLogin;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth, authStateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,5 +96,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void inicialize() {
+        mAuth = FirebaseAuth.getInstance();
     }
 }
