@@ -54,7 +54,7 @@ public class EditProductActivity extends AppCompatActivity {
         edtPrecio.setText(precio, TextView.BufferType.EDITABLE);
         edtCantidad.setText(cantidad, TextView.BufferType.EDITABLE);
         edtDescripcion.setText(descripcion, TextView.BufferType.EDITABLE);
-        imagen.setImageURI(Uri.parse(imagenProd));
+        //imagen.setImageURI(Uri.parse(imagenProd));
 
         btnEditImagenProduct = (Button) findViewById(R.id.btnEditarImagenProducto);
         btnEditImagenProduct.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +64,10 @@ public class EditProductActivity extends AppCompatActivity {
             }
 
             private void cargarImagen() {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
                 intent.setType("image/");
+                intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startActivityForResult(intent.createChooser(intent, "Seleccione la Aplicación"), 10);
             }
         });
