@@ -2,15 +2,20 @@ package com.example.storageapp.views;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -24,6 +29,7 @@ import com.example.storageapp.fragments.ReportsFragment;
 import com.example.storageapp.fragments.StorageFragment;
 import com.example.storageapp.model.ProductModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -173,5 +179,39 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
                 + '/' + res.getResourceEntryName(resId));
 
         return resUri;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.logout:
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InventarioActivity.this);
+                alertDialog.setTitle("Aviso!")
+                        .setIcon(R.drawable.ic_baseline_info_24)
+                        .setMessage("¿Está seguro que desea cerrar sesión?")
+                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                logout();
+                            }
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .create()
+                        .show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout(){
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(InventarioActivity.this, LoginActivity.class));
+        finish();
     }
 }
