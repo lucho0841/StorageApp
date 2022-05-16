@@ -15,8 +15,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StorageApp">
         <activity
-            android:name=".views.EditCategoryActivity"
+            android:name=".views.ResetPassActivity"
             android:exported="false" />
+        <activity
+            android:name=".views.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".views.EditCategoryActivity"
+            android:exported="true" />
         <activity
             android:name=".views.EditProductActivity"
             android:exported="false" />
@@ -33,7 +39,7 @@
             android:exported="false"
             android:label="@string/title_activity_inventario" />
         <activity
-            android:name=".views.MainActivity"
+            android:name=".views.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
