@@ -23,24 +23,43 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/nuevoNombreCategoria"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tffNombreCategoria"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="Nombre" />
+                android:background="@null"
+                android:hint="Nombre">
 
-            <EditText
-                android:id="@+id/nuevoDescCategoria"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nuevoNombreCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tfDescCategoria"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:background="@drawable/back"
-                android:gravity="top|left"
-                android:hint="Descripcion"
-                android:lines="6"
-                android:maxLines="10"
-                android:minLines="5" />
+                android:layout_margin="20dp"
+                android:background="@null"
+                android:hint="Descripción"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nuevoDescCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:maxLines="10"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         </LinearLayout>

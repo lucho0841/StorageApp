@@ -53,6 +53,13 @@ public class EditCategoryActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nuevoNombre = nuevoNombreCat.getText().toString();
                 String nuevoDescripcion = nuevoDescCat.getText().toString();
+
+                if (nombre.isEmpty()) {
+                    nuevoNombreCat.setError("El nombre es requerido");
+                    nuevoNombreCat.requestFocus();
+                    return;
+                }
+
                 categories.get(pos).setNombre(nuevoNombre);
                 categories.get(pos).setDescripcion(nuevoDescripcion);
                 finish();
