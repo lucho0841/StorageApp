@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 public class StorageFragment extends Fragment {
 
-    ArrayList<ProductModel> productModels = new ArrayList<>();
+    ArrayList<ProductModel> productModels;
     GridView gridView;
     MenuInflater getMenuInflater;
     GridAdapter gridAdapter;
@@ -50,6 +50,7 @@ public class StorageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         flag = true;
+        productModels = new ArrayList<>();
     }
 
     @Override
@@ -131,9 +132,9 @@ public class StorageFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.search_filter_menu, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.Search_filter);
+        MenuItem menuItemSearch = menu.findItem(R.id.Search_filter);
 
-        SearchView searchView = (SearchView) menuItem.getActionView();
+        SearchView searchView = (SearchView) menuItemSearch.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

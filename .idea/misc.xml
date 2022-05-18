@@ -19,12 +19,20 @@
         <entry key="..\:/StorageApp/app/src/main/res/layout/fragment_storage.xml" value="0.22" />
         <entry key="..\:/StorageApp/app/src/main/res/layout/grid_item_inventarios.xml" value="0.25" />
         <entry key="..\:/StorageApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/drawable/ic_facebook.xml" value="0.3225" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/drawable/ic_google.xml" value="0.3225" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_create_product.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_edit_product.xml" value="0.18854166666666666" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_inventario.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_login.xml" value="0.271286231884058" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_main.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_register.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/activity_reset_pass.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/fragment_categories.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/fragment_storage.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/grid_item_inventarios.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/layout/list_item.xml" value="0.18854166666666666" />
+        <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/menu/main_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/menu/search_filter_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
         <entry key="..\:/Users/Lucho/Documents/Universidad/ProgramacionDeDispositivosMoviles/StorageApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.196" />

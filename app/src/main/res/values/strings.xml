@@ -8,4 +8,13 @@
     <string name="title_create_products">Crear un producto</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_forgot_pass">Olvidaste tu contraseña?</string>
+    <string name="title_recovery_pass">Recuperar contraseña</string>
+    <string name="button_login">Ingresar</string>
+    <string name="button_reset">Enviar</string>
+    <string name="button_Register">Registrarse</string>
+    <string name="text_signin_social_media">O ingresa a travez de tus redes sociales</string>
+    <string name="select_company">Selecciona tu compañia</string>
+    <string name="title_reset">Recuperar contraseña</string>
+    <string name="radio_sesion">Mantener sesión iniciada</string>
 </resources>
