@@ -64,11 +64,17 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+        <RadioButton
+            android:id="@+id/rbtnSesion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/radio_sesion"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:orientation="vertical"
+        android:gravity="end">
         <TextView
             android:id="@+id/txtResetPass"
             android:layout_width="wrap_content"
