@@ -16,4 +16,5 @@
     <string name="text_signin_social_media">O ingresa a travez de tus redes sociales</string>
     <string name="select_company">Selecciona tu compañia</string>
     <string name="title_reset">Recuperar contraseña</string>
+    <string name="radio_sesion">Mantener sesión iniciada</string>
 </resources>

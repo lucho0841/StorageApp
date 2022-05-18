@@ -1,6 +1,7 @@
 package com.example.storageapp.views;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,11 +27,15 @@ import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btnLogin, btnRegister;
+    private Button btnLogin, btnRegister;
     private EditText edtCorreo, edtPass;
-    TextView txtResetPass;
-    ProgressBar progressBarLogin;
-    private FirebaseAuth mAuth, authStateListener;
+    private TextView txtResetPass;
+    private ProgressBar progressBarLogin;
+    private RadioButton rbtnSesion;
+    private FirebaseAuth mAuth;
+    private boolean isActive;
+    private static final String SHARE_PREFERENCES = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private static final String PREFERENCE_ESTADO_SESION = "estado.sesion";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +48,25 @@ public class LoginActivity extends AppCompatActivity {
         edtPass = (EditText) findViewById(R.id.edtContrasena);
         progressBarLogin = (ProgressBar) findViewById(R.id.progressBarLogin);
         mAuth = FirebaseAuth.getInstance();
+        rbtnSesion = (RadioButton) findViewById(R.id.rbtnSesion);
         txtResetPass = (TextView) findViewById(R.id.txtResetPass);
+
+        isActive = rbtnSesion.isChecked();
+
+        rbtnSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isActive){
+                    rbtnSesion.setChecked(false);
+                }
+                isActive = rbtnSesion.isChecked();
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                obtenerEstado();
                 userLogin();
             }
         });
@@ -54,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                guardarEstado();
                 startActivity(new Intent(getBaseContext(), RegisterActivity.class));
             }
         });
@@ -81,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             edtPass.requestFocus();
             return;
         }
+        guardarEstado();
         progressBarLogin.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -98,7 +120,13 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void inicialize() {
-        mAuth = FirebaseAuth.getInstance();
+    private void guardarEstado(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARE_PREFERENCES, MODE_PRIVATE);
+        sharedPreferences.edit().putBoolean(PREFERENCE_ESTADO_SESION, rbtnSesion.isChecked()).apply();
+    }
+
+    private boolean obtenerEstado(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARE_PREFERENCES, MODE_PRIVATE);
+        return sharedPreferences.getBoolean(PREFERENCE_ESTADO_SESION, false);
     }
 }
