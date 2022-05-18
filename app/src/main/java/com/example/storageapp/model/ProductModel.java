@@ -1,15 +1,17 @@
 package com.example.storageapp.model;
 
+import android.net.Uri;
+
 public class ProductModel {
     int productoId;
-    int image;
+    Uri image;
     String nombre;
     String codigo;
     String precio;
     int cantidad;
     String descripcion;
 
-    public ProductModel(int productoId, int image, String nombre, String codigo, String precio, int cantidad, String descripcion) {
+    public ProductModel(int productoId, Uri image, String nombre, String codigo, String precio, int cantidad, String descripcion) {
         this.productoId = productoId;
         this.image = image;
         this.nombre = nombre;
@@ -43,11 +45,11 @@ public class ProductModel {
         this.productoId = productoId;
     }
 
-    public int getImage() {
+    public Uri getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(Uri image) {
         this.image = image;
     }
 

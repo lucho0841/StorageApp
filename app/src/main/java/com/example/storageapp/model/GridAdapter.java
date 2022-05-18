@@ -2,6 +2,7 @@ package com.example.storageapp.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +64,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         txtPrice = convertView.findViewById(R.id.txtPrice);
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
 
-        imageProduct.setImageResource(filterProducts.get(position).getImage());
+        imageProduct.setImageURI(filterProducts.get(position).getImage());
         txtName.setText("Nombre: " + filterProducts.get(position).getNombre());
         txtCode.setText("Código: " + filterProducts.get(position).getCodigo());
         txtPrice.setText("Precio: " + filterProducts.get(position).getPrecio());
@@ -76,7 +77,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
                 intent.putExtra("name", filterProducts.get(position).getNombre());
                 intent.putExtra("codigo", filterProducts.get(position).getCodigo());
                 intent.putExtra("precio", filterProducts.get(position).getPrecio());
-                intent.putExtra("imagen", filterProducts.get(position).getImage());
+                intent.putExtra("imagenActual", filterProducts.get(position).getImage().toString());
                 intent.putExtra("cantidad", filterProducts.get(position).getCantidad());
                 intent.putExtra("descripcion", filterProducts.get(position).getDescripcion());
 

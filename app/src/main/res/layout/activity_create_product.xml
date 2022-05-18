@@ -10,12 +10,23 @@
 
 
     <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/imagenProduct"/>
+        android:src="@drawable/sinimagen"
+        android:id="@+id/imgProductCreate"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"/>
+
+
+    <Button
+        android:id="@+id/btnCrearImagenProducto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Imagen"
+        android:layout_marginRight="5dp"
+        />
     <EditText
 
-        android:id="@+id/Nombre_Producto"
+        android:id="@+id/edtNombreProductoCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Nombre de Producto"
@@ -23,21 +34,29 @@
 
     <EditText
 
-        android:id="@+id/Codigo_Producto"
+        android:id="@+id/edtCodigoProductoCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Código de Producto"
         android:textAlignment="center"/>
 
     <EditText
-        android:id="@+id/Cantidad_Producto"
+        android:id="@+id/edtCantidadProductoCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Cantidad de Producto"
+        android:textAlignment="center"
+        android:text="0"
+        android:inputType="number"/>
+    <EditText
+        android:id="@+id/edtPrecioProductoCrear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Precio de Producto"
         android:textAlignment="center" />
 
     <EditText
-        android:id="@+id/Descripcion_Producto"
+        android:id="@+id/edtDescripcionProductoCrear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -50,7 +69,7 @@
 
 
         <Button
-            android:id="@+id/button_crear"
+            android:id="@+id/btnCrearProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Crear"

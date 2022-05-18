@@ -17,7 +17,7 @@
 
 
     <Button
-        android:id="@+id/btnEditImagenProduct"
+        android:id="@+id/btnEditarImagenProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Editar Imagen"
@@ -51,7 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="Cantidad de Producto"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:inputType="number"/>
 
     <EditText
         android:id="@+id/edtDescripcionProducto"
@@ -63,13 +64,22 @@
     <LinearLayout
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_editar"
+            android:id="@+id/btnEditarProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Editar"
+            android:layout_marginRight="5dp"
+            />
+        <Button
+            android:id="@+id/btnEliminarProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:text="Eliminar"
             android:layout_marginRight="5dp"
             />
     </LinearLayout>
