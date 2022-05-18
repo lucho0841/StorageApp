@@ -102,6 +102,7 @@ public class CategoriesFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), EditCategoryActivity.class);
                 intent.putExtra("nuevoNombreCategoria", categories.get(i).getNombre());
                 intent.putExtra("nuevoDescCategoria", categories.get(i).getDescripcion());
+                intent.putExtra("posicion", i);
                 getActivity().startActivity(intent);
                 Toast.makeText(getContext(), String.valueOf(categories.get(i).getNombre()), Toast.LENGTH_LONG).show();
             }
@@ -121,6 +122,9 @@ public class CategoriesFragment extends Fragment {
         tableRow.addView(btnEliminarCat);
 
         tableLayout.addView(tableRow);
+
+        nombreCat = null;
+        descCat = null;
 
     }
 

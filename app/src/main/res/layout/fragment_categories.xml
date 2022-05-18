@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,34 +10,37 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <TableLayout
-        android:id="@+id/tableL1"
-        android:layout_width="362dp"
-        android:layout_height="493dp">
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:stretchColumns="0">
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="350dp"
+        android:layout_height="600dp"
+        android:fillViewport="true">
 
-            <LinearLayout
+        <TableLayout
+            android:id="@+id/tableL1"
+            android:layout_width="362dp"
+            android:layout_height="493dp">
 
-                android:layout_width="266dp"
-                android:layout_weight="@integer/material_motion_duration_long_1"
-                android:orientation="vertical"
-                android:paddingLeft="15dp"
-                android:paddingTop="25dp"
-                android:paddingRight="15dp"
-                android:paddingBottom="25dp">
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="0">
+
+                <LinearLayout
+
+                    android:layout_width="266dp"
+                    android:layout_weight="@integer/material_motion_duration_long_1"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="25dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="25dp"></LinearLayout>
+            </TableRow>
+        </TableLayout>
 
 
-            </LinearLayout>
-
-
-        </TableRow>
-
-
-    </TableLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:layout_width="411dp"

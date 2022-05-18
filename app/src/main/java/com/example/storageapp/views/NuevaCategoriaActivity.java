@@ -14,7 +14,10 @@ import com.example.storageapp.R;
 
 public class NuevaCategoriaActivity extends AppCompatActivity {
 
-    // Hacer validaciones en este archivo
+    // Hacer validaciones en este archivo con textfield
+    // CAMBIAR edtNombreCategoria POR tfNombreCategoria
+
+
     EditText edtNombreNuevaCat;
     EditText edtDescNuevaCat;
     Button btnCrearCategoria;
@@ -35,6 +38,13 @@ public class NuevaCategoriaActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nombre = edtNombreNuevaCat.getText().toString();
                 String descripcion = edtDescNuevaCat.getText().toString();
+
+                if (nombre.isEmpty()) {
+                    edtNombreNuevaCat.setError("El nombre es requerido");
+                    edtNombreNuevaCat.requestFocus();
+                    return;
+                }
+
                 Intent intent = new Intent(NuevaCategoriaActivity.this, InventarioActivity.class);
                 intent.putExtra("nombreCategoria", nombre);
                 intent.putExtra("descripcionCategoria", descripcion);
