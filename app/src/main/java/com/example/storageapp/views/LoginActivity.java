@@ -34,13 +34,18 @@ public class LoginActivity extends AppCompatActivity {
     private RadioButton rbtnSesion;
     private FirebaseAuth mAuth;
     private boolean isActive;
-    private static final String SHARE_PREFERENCES = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private static final String SHARE_PREFERENCES = "share.preference.user";
     private static final String PREFERENCE_ESTADO_SESION = "estado.sesion";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        if(obtenerEstado()){
+            startActivity(new Intent(getBaseContext(), InventarioActivity.class));
+            finish();
+        }
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnRegister = (Button) findViewById(R.id.btnRegister);

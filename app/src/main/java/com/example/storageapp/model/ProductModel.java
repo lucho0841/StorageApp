@@ -4,14 +4,14 @@ import android.net.Uri;
 
 public class ProductModel {
     int productoId;
-    Uri image;
+    String image;
     String nombre;
     String codigo;
     String precio;
     int cantidad;
     String descripcion;
 
-    public ProductModel(int productoId, Uri image, String nombre, String codigo, String precio, int cantidad, String descripcion) {
+    public ProductModel(int productoId, String image, String nombre, String codigo, String precio, int cantidad, String descripcion) {
         this.productoId = productoId;
         this.image = image;
         this.nombre = nombre;
@@ -45,11 +45,11 @@ public class ProductModel {
         this.productoId = productoId;
     }
 
-    public Uri getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Uri image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
