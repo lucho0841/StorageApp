@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "444392259148",
+    "firebase_url": "https://storageapp-60037-default-rtdb.firebaseio.com",
+    "project_id": "storageapp-60037",
+    "storage_bucket": "storageapp-60037.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444392259148:android:042a933796d16c4857fee9",
+        "android_client_info": {
+          "package_name": "com.example.storageapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444392259148-fgb6isj1mghqmj3563q3qf6duop58kgl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfDuS8fzsE_RPovlYqJuj6CTk85lzl2j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444392259148-fgb6isj1mghqmj3563q3qf6duop58kgl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

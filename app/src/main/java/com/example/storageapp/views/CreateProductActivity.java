@@ -18,14 +18,28 @@ import android.widget.Toast;
 
 import com.example.storageapp.R;
 import com.example.storageapp.controller.UriResources;
+import com.example.storageapp.model.ProductModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.ktx.Firebase;
+
+import java.util.ArrayList;
 
 public class CreateProductActivity extends AppCompatActivity {
 
     private EditText nombreProd, codigoProd, precioProd, cantidadProd, descripcionProd;
     String nombreProducto, codigoProducto, precioProducto, descripcionProducto, valor;
-    int cantidadProducto;
+    int cantidadProducto, id = 1;
     private Button btnCrear, btnSelectImage;
+    private DatabaseReference mData;
     private ImageView imageProduct;
+    private ProductModel product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,20 +68,13 @@ public class CreateProductActivity extends AppCompatActivity {
         btnCrear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CreateProductActivity.this, InventarioActivity.class);
                 nombreProducto = nombreProd.getText().toString();
                 codigoProducto = codigoProd.getText().toString();
                 precioProducto = precioProd.getText().toString();
                 descripcionProducto = descripcionProd.getText().toString();
                 cantidadProducto = Integer.parseInt(cantidadProd.getText().toString());
-                intent.putExtra("nombreProductoCrear", nombreProducto);
-                intent.putExtra("codigoProductoCrear", codigoProducto);
-                intent.putExtra("precioProductoCrear", precioProducto);
-                intent.putExtra("descripcionProductoCrear", descripcionProducto);
-                intent.putExtra("cantidadProductoCrear", cantidadProducto);
-                intent.putExtra("imageUriCreate", valor);
-                startActivity(intent);
-                finish();
+                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto);
+                crearProductoBD(product);
             }
         });
 
@@ -132,5 +139,26 @@ public class CreateProductActivity extends AppCompatActivity {
             valor = UriResources.ObtenerUri(path);
             imageProduct.setImageURI(path);
         }
+    }
+
+    private void crearProductoBD(ProductModel product){
+        mData = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(product.getProductoId()));
+        mData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                while (snapshot.exists()){
+                    id += 1;
+                    break;
+                }
+                if(!snapshot.exists()){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

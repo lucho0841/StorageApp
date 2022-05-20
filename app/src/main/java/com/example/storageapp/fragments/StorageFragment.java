@@ -69,9 +69,9 @@ public class StorageFragment extends Fragment {
 
         if (flag){
 
-            productModels.add(new ProductModel(1, Uri.parse("android.resource://com.example.storageapp/drawable/tornillo"), "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble"));
-            productModels.add(new ProductModel(2, Uri.parse("android.resource://com.example.storageapp/drawable/destornillador"), "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro"));
-            productModels.add(new ProductModel(3, Uri.parse("android.resource://com.example.storageapp/drawable/wiring"), "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones."));
+            productModels.add(new ProductModel(1, "android.resource://com.example.storageapp/drawable/tornillo", "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble"));
+            productModels.add(new ProductModel(2, "android.resource://com.example.storageapp/drawable/destornillador", "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro"));
+            productModels.add(new ProductModel(3, "android.resource://com.example.storageapp/drawable/wiring", "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones."));
 
             gridAdapter = new GridAdapter(getContext(), productModels);
             gridView.setAdapter(gridAdapter);
@@ -91,7 +91,7 @@ public class StorageFragment extends Fragment {
             }
             for (int i = 0; i < productModels.size(); i++) {
                 if (productModels.get(i).getProductoId() == productoId){
-                    productModels.get(i).setImage(Uri.parse(imagen));
+                    productModels.get(i).setImage(imagen);
                     productModels.get(i).setNombre(nombre);
                     productModels.get(i).setCodigo(codigo);
                     productModels.get(i).setCantidad(cantidad);
@@ -114,7 +114,7 @@ public class StorageFragment extends Fragment {
                     precio = getArguments().getString("precioProductoCrear");
                     descripcion = getArguments().getString("descripcionProductoCrear");
                     imagen = getArguments().getString("imageUriCreate");
-                    productModels.add(new ProductModel(productModels.size() + 1, Uri.parse(imagen), nombre, codigo, "$" + precio + ".00", cantidad,descripcion ));
+                    productModels.add(new ProductModel(productModels.size() + 1, imagen, nombre, codigo, "$" + precio + ".00", cantidad,descripcion ));
                 }
 
             }
