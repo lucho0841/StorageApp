@@ -1,9 +1,5 @@
 package com.example.storageapp.fragments;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,16 +12,18 @@ import android.widget.GridView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.storageapp.R;
 import com.example.storageapp.controller.DataShare;
-import com.example.storageapp.model.GridAdapter;
+import com.example.storageapp.controller.GridAdapter;
 import com.example.storageapp.model.ProductModel;
-import com.example.storageapp.views.EditProductActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -36,9 +34,11 @@ public class StorageFragment extends Fragment {
     MenuInflater getMenuInflater;
     GridAdapter gridAdapter;
     Button btnEditProduct;
+    private DatabaseReference mDatabase;
     String nombre, codigo, descripcion, precio, imagen;
     int productoId, cantidad, isEdit, isDelete;
     Boolean flag = false;
+    private Boolean isEnd = false;
 
     private DataShare shareableInstance;
 
@@ -59,6 +59,9 @@ public class StorageFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
         gridView = rootView.findViewById(R.id.grdInventario);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Products");
+
         if (getArguments() != null) {
             isEdit = getArguments().getInt("editValidate", 0);
             isDelete = getArguments().getInt("deleteValidate", 0);
@@ -68,10 +71,11 @@ public class StorageFragment extends Fragment {
         }
 
         if (flag){
+            productModels.add(new ProductModel(1, "android.resource://com.example.storageapp/drawable/tornillo", "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble", "e001", false));
+            productModels.add(new ProductModel(2, "android.resource://com.example.storageapp/drawable/destornillador", "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro","e002", false));
+            productModels.add(new ProductModel(3, "android.resource://com.example.storageapp/drawable/wiring", "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones.", "e003", false));
 
-            productModels.add(new ProductModel(1, "android.resource://com.example.storageapp/drawable/tornillo", "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble"));
-            productModels.add(new ProductModel(2, "android.resource://com.example.storageapp/drawable/destornillador", "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro"));
-            productModels.add(new ProductModel(3, "android.resource://com.example.storageapp/drawable/wiring", "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones."));
+
 
             gridAdapter = new GridAdapter(getContext(), productModels);
             gridView.setAdapter(gridAdapter);
@@ -114,7 +118,7 @@ public class StorageFragment extends Fragment {
                     precio = getArguments().getString("precioProductoCrear");
                     descripcion = getArguments().getString("descripcionProductoCrear");
                     imagen = getArguments().getString("imageUriCreate");
-                    productModels.add(new ProductModel(productModels.size() + 1, imagen, nombre, codigo, "$" + precio + ".00", cantidad,descripcion ));
+                    productModels.add(new ProductModel(productModels.size() + 1, imagen, nombre, codigo, "$" + precio + ".00", cantidad,descripcion, "e004", false));
                 }
 
             }

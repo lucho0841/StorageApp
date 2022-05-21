@@ -1,4 +1,4 @@
-package com.example.storageapp.model;
+package com.example.storageapp.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.storageapp.model.ProductModel;
 import com.example.storageapp.views.EditProductActivity;
 import com.example.storageapp.R;
 
@@ -74,7 +75,6 @@ public class GridAdapter extends BaseAdapter implements Filterable {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EditProductActivity.class);
-                intent.putExtra("idProducto", filterProducts.get(position).getProductoId());
                 intent.putExtra("name", filterProducts.get(position).getNombre());
                 intent.putExtra("codigo", filterProducts.get(position).getCodigo());
                 intent.putExtra("precio", filterProducts.get(position).getPrecio());

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.storageapp.R;
+import com.example.storageapp.controller.AlertDialogs;
 import com.example.storageapp.controller.UriResources;
 import com.example.storageapp.model.ProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,11 +36,13 @@ public class CreateProductActivity extends AppCompatActivity {
 
     private EditText nombreProd, codigoProd, precioProd, cantidadProd, descripcionProd;
     String nombreProducto, codigoProducto, precioProducto, descripcionProducto, valor;
-    int cantidadProducto, id = 1;
+    int cantidadProducto, id = 0;
     private Button btnCrear, btnSelectImage;
     private DatabaseReference mData;
     private ImageView imageProduct;
     private ProductModel product;
+    private AlertDialog.Builder cancelProcess;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class CreateProductActivity extends AppCompatActivity {
         btnCrear = (Button) findViewById(R.id.btnCrearProducto);
         btnSelectImage = (Button) findViewById(R.id.btnCrearImagenProducto);
         imageProduct = (ImageView) findViewById(R.id.imgProductCreate);
+
+        mAuth = FirebaseAuth.getInstance();
 
         btnSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +78,7 @@ public class CreateProductActivity extends AppCompatActivity {
                 precioProducto = precioProd.getText().toString();
                 descripcionProducto = descripcionProd.getText().toString();
                 cantidadProducto = Integer.parseInt(cantidadProd.getText().toString());
-                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto);
+                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto, mAuth.getCurrentUser().getUid(), false);
                 crearProductoBD(product);
             }
         });
@@ -85,22 +90,14 @@ public class CreateProductActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateProductActivity.this);
-                alertDialog.setTitle("Aviso!")
-                        .setIcon(R.drawable.ic_baseline_warning_24)
-                        .setMessage("¿Está seguro que desea cancelar el registro?")
-                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                cancelProcess = AlertDialogs.showAlert(CreateProductActivity.this, "Aviso!", "¿Está seguro que desea cancelar el registro?", R.drawable.ic_baseline_warning_24);
+                cancelProcess.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 finish();
                             }
                         })
-                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Toast.makeText(CreateProductActivity.this, "Has cancelado!", Toast.LENGTH_SHORT).show();
-                            }
-                        })
+                        .setNegativeButton("Cancelar", null)
                         .create()
                         .show();
                 return true;
@@ -111,22 +108,14 @@ public class CreateProductActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(CreateProductActivity.this);
-        alertDialog.setTitle("Aviso!")
-                .setIcon(R.drawable.ic_baseline_warning_24)
-                .setMessage("¿Está seguro que desea cancelar el registro?")
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+        cancelProcess = AlertDialogs.showAlert(CreateProductActivity.this, "Aviso!", "¿Está seguro que desea cancelar el registro?", R.drawable.ic_baseline_warning_24);
+        cancelProcess.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         finish();
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(CreateProductActivity.this, "Has cancelado!", Toast.LENGTH_SHORT).show();
-                    }
-                })
+                .setNegativeButton("Cancelar", null)
                 .create()
                 .show();
     }
@@ -142,16 +131,25 @@ public class CreateProductActivity extends AppCompatActivity {
     }
 
     private void crearProductoBD(ProductModel product){
-        mData = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(product.getProductoId()));
-        mData.addValueEventListener(new ValueEventListener() {
+        mData = FirebaseDatabase.getInstance().getReference("Products");
+        mData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                while (snapshot.exists()){
-                    id += 1;
-                    break;
-                }
-                if(!snapshot.exists()){
-
+                if (snapshot.exists()){
+                    long numHijos = snapshot.getChildrenCount();
+                    id = Integer.parseInt(String.valueOf(numHijos)) + 1;
+                    product.setProductoId(id);
+                    FirebaseDatabase.getInstance().getReference("Products")
+                            .child(String.valueOf(id))
+                            .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(CreateProductActivity.this, "El producto ha sido creado con Éxito!!!", Toast.LENGTH_LONG).show();
+                                        finish();
+                                    }
+                                }
+                            });
                 }
             }
 
