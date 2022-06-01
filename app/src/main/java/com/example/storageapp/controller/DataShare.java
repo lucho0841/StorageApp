@@ -1,5 +1,6 @@
 package com.example.storageapp.controller;
 
+import com.example.storageapp.model.CategoryModel;
 import com.example.storageapp.model.ProductModel;
 
 import java.util.ArrayList;

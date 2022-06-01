@@ -38,6 +38,8 @@ public class CategoriesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        categories = Dataholder.getInstance().categories;
+
         if (getArguments() != null) {
             nombreCat =  getArguments().getString("nombreCategoria");
             descCat =  getArguments().getString("descripcionCategoria");

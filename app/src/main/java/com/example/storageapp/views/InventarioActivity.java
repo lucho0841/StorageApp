@@ -27,6 +27,7 @@ import com.example.storageapp.databinding.ActivityInventarioBinding;
 import com.example.storageapp.fragments.CategoriesFragment;
 import com.example.storageapp.fragments.ReportsFragment;
 import com.example.storageapp.fragments.StorageFragment;
+import com.example.storageapp.model.CategoryModel;
 import com.example.storageapp.model.ProductModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +45,8 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
     int productoId, cantidadProducto;
     boolean isEdit, isDelete;
     StorageFragment storageFragment;
+
+    String nombreCategoria, descripcionCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +171,7 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
             ArrayList<ProductModel> productos = data;
         }
     }
+
 
     public static final Uri getUriToResource(@NonNull Context context, @AnyRes int resId) throws Resources.NotFoundException {
 
