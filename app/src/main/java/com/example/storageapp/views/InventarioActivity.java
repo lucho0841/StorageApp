@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,6 +46,8 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
     int productoId, cantidadProducto;
     boolean isEdit, isDelete;
     StorageFragment storageFragment;
+    private static final String SHARE_PREFERENCES = "share.preference.user";
+    private static final String PREFERENCE_ESTADO_SESION = "estado.sesion";
 
     String nombreCategoria, descripcionCategoria;
 
@@ -203,6 +206,8 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 logout();
+                                SharedPreferences sharedPreferences = getSharedPreferences(SHARE_PREFERENCES, MODE_PRIVATE);
+                                sharedPreferences.edit().putBoolean(PREFERENCE_ESTADO_SESION, false).apply();
                             }
                         })
                         .setNegativeButton("Cancelar", null)

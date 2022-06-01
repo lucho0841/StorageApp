@@ -2,6 +2,7 @@ package com.example.storageapp.model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,7 +65,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         txtPrice = convertView.findViewById(R.id.txtPrice);
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
 
-        imageProduct.setImageURI(filterProducts.get(position).getImage());
+        imageProduct.setImageURI(Uri.parse(filterProducts.get(position).getImage()));
         txtName.setText("Nombre: " + filterProducts.get(position).getNombre());
         txtCode.setText("Código: " + filterProducts.get(position).getCodigo());
         txtPrice.setText("Precio: " + filterProducts.get(position).getPrecio());

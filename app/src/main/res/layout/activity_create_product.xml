@@ -1,67 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:layout_margin="20dp">
 
-
-    <ImageView
-        android:src="@drawable/sinimagen"
-        android:id="@+id/imgProductCreate"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_gravity="center"/>
-
-
-    <Button
-        android:id="@+id/btnCrearImagenProducto"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Seleccionar Imagen"
-        android:layout_marginRight="5dp"
-        />
-    <EditText
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="10dp">
 
-        android:id="@+id/edtNombreProductoCrear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de Producto"
-        android:textAlignment="center"/>
+        <ImageView
+            android:src="@drawable/sinimagen"
+            android:id="@+id/imgProductCreate"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"/>
 
-    <EditText
 
-        android:id="@+id/edtCodigoProductoCrear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Código de Producto"
-        android:textAlignment="center"/>
+        <Button
+            android:id="@+id/btnCrearImagenProducto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_adjuntar"
+            android:drawableLeft="@drawable/ic_baseline_attach_file_24"
+            android:layout_marginRight="5dp"
+            />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/edtCantidadProductoCrear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Cantidad de Producto"
-        android:textAlignment="center"
-        android:text="0"
-        android:inputType="number"/>
-    <EditText
-        android:id="@+id/edtPrecioProductoCrear"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Precio de Producto"
-        android:textAlignment="center" />
 
-    <EditText
-        android:id="@+id/edtDescripcionProductoCrear"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:hint="Descripción de Producto"
-        android:textAlignment="center" />
+        android:hint="Nombre del producto"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@null"
+        app:startIconDrawable="@drawable/ic_baseline_build_24">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtNombreProductoCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="filled"
+        android:hint="Código del producto"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        app:startIconDrawable="@drawable/ic_baseline_qr_code_24">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtCodigoProductoCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textAutoComplete"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="filled"
+        android:hint="Cantidad"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        app:startIconDrawable="@drawable/ic_baseline_123_24">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtCantidadProductoCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="filled"
+        android:hint="Precio"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        app:startIconDrawable="@drawable/ic_baseline_attach_money_24">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtPrecioProductoCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:boxBackgroundMode="filled"
+        android:hint="Descripción"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp"
+        app:startIconDrawable="@drawable/ic_baseline_text_snippet_24">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDescripcionProductoCrear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <LinearLayout
         android:layout_marginTop="50dp"
         android:layout_width="wrap_content"
@@ -81,4 +136,5 @@
 
 
 
-</LinearLayout>
+        </LinearLayout>
+    </ScrollView>
