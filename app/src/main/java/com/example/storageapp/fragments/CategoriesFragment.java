@@ -87,12 +87,6 @@ public class CategoriesFragment extends Fragment {
                 300,
                 LinearLayout.LayoutParams.WRAP_CONTENT
         );
-
-        Button btnEliminarCat = new Button(getActivity());
-        btnEliminarCat.setWidth(48);
-        btnEliminarCat.setHeight(25);
-        btnEliminarCat.setText("X");
-
         TableRow tableRow = new TableRow(getActivity());
         tableRow.setId(R.id.tableRowCats);
         tableRow.setClickable(true);
@@ -119,8 +113,6 @@ public class CategoriesFragment extends Fragment {
         linearLayout.addView(txtNombreCat);
         linearLayout.addView(txtDescCat);
         tableRow.addView(linearLayout);
-        tableRow.addView(btnEliminarCat);
-
         tableLayout.addView(tableRow);
 
         nombreCat = null;

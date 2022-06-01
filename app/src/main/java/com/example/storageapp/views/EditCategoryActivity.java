@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.example.storageapp.Dataholder;
+import com.example.storageapp.controller.Dataholder;
 import com.example.storageapp.R;
 import com.example.storageapp.model.CategoryModel;
 
