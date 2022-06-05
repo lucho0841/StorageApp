@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Dataholder {
 
-    public final ArrayList<CategoryModel> categories = new ArrayList<>();
+    public ArrayList<CategoryModel> categories = new ArrayList<>();
     private static Dataholder instance;
 
     private Dataholder() {}
