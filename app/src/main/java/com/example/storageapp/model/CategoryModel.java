@@ -6,8 +6,11 @@ public class CategoryModel {
     String codigo;
     String nombre;
     String descripcion;
+    String usuarioId;
+    int categoriaId;
 
-    public CategoryModel(String codigo, String nombre, String descripcion, int codigoId) {
+    public CategoryModel(String usuarioId, String codigo, String nombre, String descripcion, int codigoId) {
+        this.usuarioId = usuarioId;
         this.codigoId = codigoId;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -20,6 +23,22 @@ public class CategoryModel {
     }
 
     public CategoryModel() {}
+
+    public int getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setProductoId(int productoId) {
+        this.categoriaId = productoId;
+    }
+
+    public String getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(String usuarioId) {
+        this.usuarioId = usuarioId;
+    }
 
     public String getCodigo() {
         return codigo;
