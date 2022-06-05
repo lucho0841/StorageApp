@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.storageapp.R;
+import com.example.storageapp.controller.Authenticate;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,6 +32,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -44,9 +51,10 @@ public class LoginActivity extends AppCompatActivity {
     private RadioButton rbtnSesion;
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogle;
-    private boolean isActive;
+    private FirebaseDatabase mDatabase;
+    private boolean isActive, isloginSuccess;
     private static final int RC_SIGN_IN = 100;
-    private static final String TAG = "GOOGLE_SIGN_IN_TAG";
+    private static final String TAG = "GoogleSignIn";
     private static final String SHARE_PREFERENCES = "share.preference.user";
     private static final String PREFERENCE_ESTADO_SESION = "estado.sesion";
 
@@ -73,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
         edtPass = (EditText) findViewById(R.id.edtContrasena);
         progressBarLogin = (ProgressBar) findViewById(R.id.progressBarLogin);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
         rbtnSesion = (RadioButton) findViewById(R.id.rbtnSesion);
         txtResetPass = (TextView) findViewById(R.id.txtResetPass);
         btnGoogle = (ImageView) findViewById(R.id.btnGoogle);
@@ -94,6 +103,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 obtenerEstado();
                 userLogin();
+                /*isloginSuccess = Authenticate.userLogin(edtCorreo, edtPass);
+                if (isloginSuccess){
+                    guardarEstado();
+                    progressBarLogin.setVisibility(View.GONE);
+                    startActivity(new Intent(getBaseContext(), InventarioActivity.class));
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Error al iniciar sesion. Por favor verifica tus credenciales.", Toast.LENGTH_LONG).show();
+                    progressBarLogin.setVisibility(View.GONE);
+                }*/
             }
         });
 
@@ -117,30 +136,28 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = mGoogle.getSignInIntent();
                 startActivityForResult(intent, RC_SIGN_IN);
-                Toast.makeText(getBaseContext(), "Botón google", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             if (task.isSuccessful()){
                try {
-                    GoogleSignInAccount signInAccount = task.getResult(ApiException.class);
-                    Log.d(TAG, "firebaseAuthWithGoogle: " + signInAccount.getId());
-                    firebaseAuthWithGoogle(signInAccount.getId());
+                   GoogleSignInAccount signInAccount = task.getResult(ApiException.class);
+                   guardarEstado();
+                   Log.d(TAG, "firebaseAuthWithGoogle: " + signInAccount.getId());
+                   firebaseAuthWithGoogle(signInAccount.getIdToken());
                }catch (Exception ex){
                     Log.w(TAG, "Google sign in failed", ex);
                }
             } else {
-
+                Toast.makeText(getBaseContext(), "Error de conexión con el servicio de Google, Contacte a un administrador para continuar.", Toast.LENGTH_SHORT).show();
             }
         }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -153,8 +170,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             //FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(LoginActivity.this, InventarioActivity.class));
-                            finish();
+                            checkUserExist(mAuth.getCurrentUser().getEmail());
                         } else {
                             Toast.makeText(getBaseContext(), "Error al iniciar sesión con Google!", Toast.LENGTH_SHORT).show();
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -195,6 +211,30 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void checkUserExist(String email){
+        DatabaseReference usersReference = mDatabase.getReference().child("Users");
+
+        Query userByEmailQuery = usersReference.orderByChild("email").equalTo(email).limitToFirst(1);
+
+        userByEmailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    startActivity(new Intent(getBaseContext(), InventarioActivity.class));
+                    finish();
+                } else {
+                    startActivity(new Intent(getBaseContext(), RegisterGoogleAccountActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void guardarEstado(){

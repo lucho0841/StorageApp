@@ -10,8 +10,10 @@ public class ProductModel {
     String precio;
     int cantidad;
     String descripcion;
+    String usuarioId;
+    Boolean inactive;
 
-    public ProductModel(int productoId, String image, String nombre, String codigo, String precio, int cantidad, String descripcion) {
+    public ProductModel(int productoId, String image, String nombre, String codigo, String precio, int cantidad, String descripcion, String usuarioId, Boolean inactive) {
         this.productoId = productoId;
         this.image = image;
         this.nombre = nombre;
@@ -19,7 +21,11 @@ public class ProductModel {
         this.precio = precio;
         this.cantidad = cantidad;
         this.descripcion = descripcion;
+        this.usuarioId = usuarioId;
+        this.inactive = inactive;
     }
+
+
 
     public int getCantidad() {
         return cantidad;

@@ -8,11 +8,9 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
@@ -23,7 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.storageapp.R;
-import com.example.storageapp.controller.DataShare;
+import com.example.storageapp.controller.AlertDialogs;
 import com.example.storageapp.databinding.ActivityInventarioBinding;
 import com.example.storageapp.fragments.CategoriesFragment;
 import com.example.storageapp.fragments.ReportsFragment;
@@ -31,12 +29,12 @@ import com.example.storageapp.fragments.StorageFragment;
 import com.example.storageapp.model.ProductModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class InventarioActivity extends AppCompatActivity implements DataShare {
+public class InventarioActivity extends AppCompatActivity {
 
     private ActivityInventarioBinding binding;
     FloatingActionButton fabOpenProduct;
@@ -47,6 +45,7 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
     StorageFragment storageFragment;
     private static final String SHARE_PREFERENCES = "share.preference.user";
     private static final String PREFERENCE_ESTADO_SESION = "estado.sesion";
+    private AlertDialog.Builder cerrarSesionDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
 
         isEdit = getIntent().getBooleanExtra("editValidate", false);
         isDelete = getIntent().getBooleanExtra("isDelete", false);
-        if (isEdit){
+        if (isEdit) {
             // Obtención de datos EditProductActivity //
             productoId = getIntent().getIntExtra("idProducto", 0);
             descripcionProducto = getIntent().getStringExtra("descripcionProducto");
@@ -88,7 +87,7 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
             ////
         } else if (isDelete) {
             // Obtencion de datos CreateProductActivity //
-            productoId = getIntent().getIntExtra("productoIdDelete",0);
+            productoId = getIntent().getIntExtra("productoIdDelete", 0);
 
             crearProducto.putInt("productoIdDelete", productoId);
             crearProducto.putInt("deleteValidate", 1);
@@ -126,7 +125,7 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
 
         binding.navView.setOnItemSelectedListener(item -> {
 
-            switch (item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.navigation_inventario:
                     storageFragment = new StorageFragment();
                     //storageFragment.setShareableInstance(this);
@@ -165,13 +164,6 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void setData(ArrayList<ProductModel> data) {
-        if(data instanceof ArrayList){
-            ArrayList<ProductModel> productos = data;
-        }
-    }
-
     public static final Uri getUriToResource(@NonNull Context context, @AnyRes int resId) throws Resources.NotFoundException {
 
         Resources res = context.getResources();
@@ -192,29 +184,47 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
-                AlertDialog.Builder alertDialog = new AlertDialog.Builder(InventarioActivity.this);
-                alertDialog.setTitle("Aviso!")
-                        .setIcon(R.drawable.ic_baseline_info_24)
-                        .setMessage("¿Está seguro que desea cerrar sesión?")
-                        .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                logout();
-                                SharedPreferences sharedPreferences = getSharedPreferences(SHARE_PREFERENCES, MODE_PRIVATE);
-                                sharedPreferences.edit().putBoolean(PREFERENCE_ESTADO_SESION, false).apply();
-                            }
-                        })
-                        .setNegativeButton("Cancelar", null)
-                        .create()
-                        .show();
+                cerrarSesionDialog = AlertDialogs.showAlert(InventarioActivity.this, "Aviso!", "¿Está seguro que desea cerrar sesión?", R.drawable.ic_baseline_info_24);
+                cerrarSesionDialog.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        logout();
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARE_PREFERENCES, MODE_PRIVATE);
+                        sharedPreferences.edit().putBoolean(PREFERENCE_ESTADO_SESION, false).apply();
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                    .create()
+                    .show();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void logout(){
+    @Override
+    public void onBackPressed() {
+        cerrarSesionDialog = AlertDialogs.showAlert(InventarioActivity.this, "Aviso!", "¿Está seguro que desea salir de la aplicación?", R.drawable.ic_baseline_info_24);
+        cerrarSesionDialog.setPositiveButton("Cerrar Sesión", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        logout();
+                        SharedPreferences sharedPreferences = getSharedPreferences(SHARE_PREFERENCES, MODE_PRIVATE);
+                        sharedPreferences.edit().putBoolean(PREFERENCE_ESTADO_SESION, false).apply();
+                    }
+                })
+                .setNegativeButton("Salir", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .create()
+                .show();
+    }
+
+    private void logout() {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(InventarioActivity.this, LoginActivity.class));
         finish();

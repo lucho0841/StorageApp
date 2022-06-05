@@ -1,9 +1,5 @@
 package com.example.storageapp.fragments;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,18 +12,20 @@ import android.widget.GridView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.storageapp.R;
-import com.example.storageapp.controller.DataShare;
-import com.example.storageapp.model.GridAdapter;
+import com.example.storageapp.controller.GridAdapter;
 import com.example.storageapp.model.ProductModel;
-import com.example.storageapp.views.EditProductActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StorageFragment extends Fragment {
 
@@ -36,15 +34,11 @@ public class StorageFragment extends Fragment {
     MenuInflater getMenuInflater;
     GridAdapter gridAdapter;
     Button btnEditProduct;
+    private DatabaseReference mDatabase;
     String nombre, codigo, descripcion, precio, imagen;
     int productoId, cantidad, isEdit, isDelete;
     Boolean flag = false;
-
-    private DataShare shareableInstance;
-
-    public void setShareableInstance(DataShare dataShare){
-        this.shareableInstance = dataShare;
-    }
+    private Boolean isEnd = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +53,59 @@ public class StorageFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
         gridView = rootView.findViewById(R.id.grdInventario);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Products").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    long numHijos = snapshot.getChildrenCount();
+                    for (int i = 1; i <= numHijos; i++){
+                        mDatabase = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(i));
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    int id = Integer.parseInt(snapshot.child("productoId").getValue().toString().trim());
+                                    String image = snapshot.child("image").getValue().toString().trim();
+                                    String nombre = snapshot.child("nombre").getValue().toString();
+                                    String codigo = snapshot.child("codigo").getValue().toString().trim();
+                                    String precio = snapshot.child("precio").getValue().toString().trim();
+                                    int cantidad = Integer.parseInt(snapshot.child("cantidad").getValue().toString().trim());
+                                    String descripcion = snapshot.child("descripcion").getValue().toString();
+                                    String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
+
+                                    ProductModel productModel = new ProductModel(
+                                            id,
+                                            image,
+                                            nombre,
+                                            codigo,
+                                            precio,
+                                            cantidad,
+                                            descripcion,
+                                            usuarioId,
+                                            false
+                                            );
+                                    productModels.add(productModel);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         if (getArguments() != null) {
             isEdit = getArguments().getInt("editValidate", 0);
             isDelete = getArguments().getInt("deleteValidate", 0);
@@ -68,10 +115,6 @@ public class StorageFragment extends Fragment {
         }
 
         if (flag){
-
-            productModels.add(new ProductModel(1, "android.resource://com.example.storageapp/drawable/tornillo", "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble"));
-            productModels.add(new ProductModel(2, "android.resource://com.example.storageapp/drawable/destornillador", "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro"));
-            productModels.add(new ProductModel(3, "android.resource://com.example.storageapp/drawable/wiring", "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones."));
 
             gridAdapter = new GridAdapter(getContext(), productModels);
             gridView.setAdapter(gridAdapter);
@@ -114,7 +157,7 @@ public class StorageFragment extends Fragment {
                     precio = getArguments().getString("precioProductoCrear");
                     descripcion = getArguments().getString("descripcionProductoCrear");
                     imagen = getArguments().getString("imageUriCreate");
-                    productModels.add(new ProductModel(productModels.size() + 1, imagen, nombre, codigo, "$" + precio + ".00", cantidad,descripcion ));
+                    productModels.add(new ProductModel(productModels.size() + 1, imagen, nombre, codigo, "$" + precio + ".00", cantidad,descripcion, "e004", false));
                 }
 
             }

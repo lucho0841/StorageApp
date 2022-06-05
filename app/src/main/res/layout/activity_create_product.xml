@@ -60,10 +60,11 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="filled"
         android:hint="Código del producto"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@null"
         app:startIconDrawable="@drawable/ic_baseline_qr_code_24">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtCodigoProductoCrear"
@@ -74,7 +75,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="filled"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@null"
         android:hint="Cantidad"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
@@ -89,7 +91,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="filled"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@null"
         android:hint="Precio"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
@@ -104,7 +107,8 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="filled"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:background="@null"
         android:hint="Descripción"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
