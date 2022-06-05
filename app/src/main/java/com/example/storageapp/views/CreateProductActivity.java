@@ -9,8 +9,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +24,7 @@ import android.widget.Toast;
 import com.example.storageapp.R;
 import com.example.storageapp.controller.AlertDialogs;
 import com.example.storageapp.controller.UriResources;
+import com.example.storageapp.model.CategoryModel;
 import com.example.storageapp.model.ProductModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -35,11 +41,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CreateProductActivity extends AppCompatActivity {
 
     private EditText nombreProd, codigoProd, precioProd, cantidadProd, descripcionProd;
-    String nombreProducto, codigoProducto, precioProducto, descripcionProducto, valor;
+    String nombreProducto, codigoProducto, precioProducto, descripcionProducto, categoriaProducto, valor, item;
     int cantidadProducto, id = 0;
     private Button btnCrear, btnSelectImage;
     private DatabaseReference mData;
@@ -47,6 +54,7 @@ public class CreateProductActivity extends AppCompatActivity {
     private ProductModel product;
     private Uri path;
     private StorageReference filepath;
+    private AutoCompleteTextView edtSelectCategory;
 
     private AlertDialog.Builder cancelProcess;
     private FirebaseAuth mAuth;
@@ -65,12 +73,25 @@ public class CreateProductActivity extends AppCompatActivity {
         precioProd = (EditText) findViewById(R.id.edtPrecioProductoCrear);
         cantidadProd = (EditText) findViewById(R.id.edtCantidadProductoCrear);
         descripcionProd = (EditText) findViewById(R.id.edtDescripcionProductoCrear);
+        edtSelectCategory = (AutoCompleteTextView) findViewById(R.id.edtSelectCategory);
 
         btnCrear = (Button) findViewById(R.id.btnCrearProducto);
         btnSelectImage = (Button) findViewById(R.id.btnCrearImagenProducto);
         imageProduct = (ImageView) findViewById(R.id.imgProductCreate);
 
         mAuth = FirebaseAuth.getInstance();
+        obtenerCategorias();
+        edtSelectCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+                item = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         btnSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +110,8 @@ public class CreateProductActivity extends AppCompatActivity {
                 precioProducto = precioProd.getText().toString();
                 descripcionProducto = descripcionProd.getText().toString();
                 cantidadProducto = Integer.parseInt(cantidadProd.getText().toString().equals("") ? "0" : cantidadProd.getText().toString());
-                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto, mAuth.getCurrentUser().getUid(), false);
+                categoriaProducto = edtSelectCategory.getText().toString();
+                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto, mAuth.getCurrentUser().getUid() == null ? "" : mAuth.getCurrentUser().getUid(), false);
                 crearProductoBD(product);
             }
         });
@@ -173,13 +195,12 @@ public class CreateProductActivity extends AppCompatActivity {
                 if (snapshot.exists()){
                     long numHijos = snapshot.getChildrenCount();
                     id = Integer.parseInt(String.valueOf(numHijos)) + 1;
-                    filepath = mStorage.child("productImages").child(path.getLastPathSegment());
-                    filepath.putFile(path).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getBaseContext(), "Imagen cargada correctamente", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    filepath = mStorage.child("productImages").child(String.valueOf(id)).child("File"+path.getLastPathSegment());
+                    filepath.putFile(path).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
+                        HashMap<String, String> hashMap = new HashMap<>();
+                        hashMap.put("link", String.valueOf(uri));
+                        Log.d("INFO", hashMap.get("link"));
+                    }));
                     product.setProductoId(id);
                     FirebaseDatabase.getInstance().getReference("Products")
                             .child(String.valueOf(id))
@@ -192,6 +213,43 @@ public class CreateProductActivity extends AppCompatActivity {
                                     }
                                 }
                             });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void obtenerCategorias(){
+        mData = FirebaseDatabase.getInstance().getReference("Category");
+        mData.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    ArrayList<String> categoryList = new ArrayList<>();
+                    long numHijos = snapshot.getChildrenCount();
+                    for (int i = 1; i <= numHijos; i++){
+                        mData = FirebaseDatabase.getInstance().getReference("Category").child(String.valueOf(i));
+                        mData.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    String nombre = snapshot.child("nombre").getValue().toString();
+                                    categoryList.add(nombre);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+                    ArrayAdapter adapter = new ArrayAdapter(getBaseContext(), R.layout.list_item, categoryList);
+                    edtSelectCategory.setAdapter(adapter);
                 }
             }
 

@@ -41,7 +41,7 @@ public class EditProductActivity extends AppCompatActivity {
         descripcion = getIntent().getStringExtra("descripcion");
 
         setContentView(R.layout.activity_edit_product);
-        imagen = findViewById(R.id.imageProduct);
+        imagen = findViewById(R.id.imgProductEdit);
 
         edtNombre = (EditText) findViewById(R.id.edtNombreProducto);
         edtCodigo = (EditText) findViewById(R.id.edtCodigoProducto);

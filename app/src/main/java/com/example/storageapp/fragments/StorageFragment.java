@@ -54,116 +54,64 @@ public class StorageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
         gridView = rootView.findViewById(R.id.grdInventario);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("Products").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
-                    long numHijos = snapshot.getChildrenCount();
-                    for (int i = 1; i <= numHijos; i++){
-                        mDatabase = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(i));
-                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                if (snapshot.exists()){
-                                    int id = Integer.parseInt(snapshot.child("productoId").getValue().toString().trim());
-                                    String image = snapshot.child("image").getValue().toString().trim();
-                                    String nombre = snapshot.child("nombre").getValue().toString();
-                                    String codigo = snapshot.child("codigo").getValue().toString().trim();
-                                    String precio = snapshot.child("precio").getValue().toString().trim();
-                                    int cantidad = Integer.parseInt(snapshot.child("cantidad").getValue().toString().trim());
-                                    String descripcion = snapshot.child("descripcion").getValue().toString();
-                                    String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
-
-                                    ProductModel productModel = new ProductModel(
-                                            id,
-                                            image,
-                                            nombre,
-                                            codigo,
-                                            precio,
-                                            cantidad,
-                                            descripcion,
-                                            usuarioId,
-                                            false
-                                            );
-                                    productModels.add(productModel);
+        if (flag){
+            mDatabase = FirebaseDatabase.getInstance().getReference();
+            mDatabase.child("Products").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if (snapshot.exists()){
+                        productModels = new ArrayList<>();
+                        long numHijos = snapshot.getChildrenCount();
+                        for (int i = 1; i <= numHijos; i++){
+                            mDatabase = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(i));
+                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()){
+                                        int id = Integer.parseInt(snapshot.child("productoId").getValue().toString().trim());
+                                        String image = snapshot.child("image").getValue().toString().trim();
+                                        String nombre = snapshot.child("nombre").getValue().toString();
+                                        String codigo = snapshot.child("codigo").getValue().toString().trim();
+                                        String precio = snapshot.child("precio").getValue().toString().trim();
+                                        int cantidad = Integer.parseInt(snapshot.child("cantidad").getValue().toString().trim());
+                                        String descripcion = snapshot.child("descripcion").getValue().toString();
+                                        String categoria = snapshot.child("categoria").getValue().toString();
+                                        String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
+                                        ProductModel productModel = new ProductModel(
+                                                id,
+                                                "android.resource://com.example.storageapp/drawable/tornillo",
+                                                nombre,
+                                                codigo,
+                                                precio,
+                                                cantidad,
+                                                descripcion,
+                                                categoria,
+                                                usuarioId,
+                                                false
+                                        );
+                                        productModels.add(productModel);
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
+
+                        gridAdapter = new GridAdapter(getContext(), productModels);
+                        gridView.setAdapter(gridAdapter);
                     }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        if (getArguments() != null) {
-            isEdit = getArguments().getInt("editValidate", 0);
-            isDelete = getArguments().getInt("deleteValidate", 0);
-        } else {
-            isEdit = 0;
-            isDelete = 0;
-        }
-
-        if (flag){
-
-            gridAdapter = new GridAdapter(getContext(), productModels);
-            gridView.setAdapter(gridAdapter);
+            });
             flag = false;
         }
-
-        if (isEdit == 1){
-
-            if (getArguments() != null) {
-                productoId = getArguments().getInt("productoId");
-                nombre = getArguments().getString("nombreProducto");
-                codigo = getArguments().getString("codigoProducto");
-                cantidad = getArguments().getInt("cantidadProducto");
-                precio = getArguments().getString("precioProducto");
-                descripcion = getArguments().getString("descripcionProducto");
-                imagen = getArguments().getString("imagen");
-            }
-            for (int i = 0; i < productModels.size(); i++) {
-                if (productModels.get(i).getProductoId() == productoId){
-                    productModels.get(i).setImage(imagen);
-                    productModels.get(i).setNombre(nombre);
-                    productModels.get(i).setCodigo(codigo);
-                    productModels.get(i).setCantidad(cantidad);
-                    productModels.get(i).setPrecio(precio);
-                    productModels.get(i).setDescripcion(descripcion);
-                }
-            }
-        } else {
-            if (getArguments() != null) {
-                if (isDelete == 1){
-                    productoId = getArguments().getInt("productoIdDelete");
-                    productModels.remove(productoId - 1);
-                    gridAdapter = new GridAdapter(getContext(), productModels);
-                    gridView.setAdapter(gridAdapter);
-                    Toast.makeText(getContext(), "Producto Eliminado con éxito!!", Toast.LENGTH_SHORT).show();
-                } else {
-                    nombre = getArguments().getString("nombreProductoCrear");
-                    codigo = getArguments().getString("codigoProductoCrear");
-                    cantidad = getArguments().getInt("cantidadProductoCrear");
-                    precio = getArguments().getString("precioProductoCrear");
-                    descripcion = getArguments().getString("descripcionProductoCrear");
-                    imagen = getArguments().getString("imageUriCreate");
-                    productModels.add(new ProductModel(productModels.size() + 1, imagen, nombre, codigo, "$" + precio + ".00", cantidad,descripcion, "e004", false));
-                }
-
-            }
-
-        }
-
 
         setHasOptionsMenu(true);
 
