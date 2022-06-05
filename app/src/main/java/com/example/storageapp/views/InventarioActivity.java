@@ -22,7 +22,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.storageapp.R;
 import com.example.storageapp.controller.AlertDialogs;
-import com.example.storageapp.controller.DataShare;
 import com.example.storageapp.databinding.ActivityInventarioBinding;
 import com.example.storageapp.fragments.CategoriesFragment;
 import com.example.storageapp.fragments.ReportsFragment;
@@ -30,11 +29,12 @@ import com.example.storageapp.fragments.StorageFragment;
 import com.example.storageapp.model.ProductModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
 
 
-public class InventarioActivity extends AppCompatActivity implements DataShare {
+public class InventarioActivity extends AppCompatActivity {
 
     private ActivityInventarioBinding binding;
     FloatingActionButton fabOpenProduct;
@@ -162,13 +162,6 @@ public class InventarioActivity extends AppCompatActivity implements DataShare {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void setData(ArrayList<ProductModel> data) {
-        if (data instanceof ArrayList) {
-            ArrayList<ProductModel> productos = data;
-        }
     }
 
     public static final Uri getUriToResource(@NonNull Context context, @AnyRes int resId) throws Resources.NotFoundException {

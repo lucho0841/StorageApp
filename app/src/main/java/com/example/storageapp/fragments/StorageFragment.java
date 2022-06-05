@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.storageapp.R;
-import com.example.storageapp.controller.DataShare;
 import com.example.storageapp.controller.GridAdapter;
 import com.example.storageapp.model.ProductModel;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StorageFragment extends Fragment {
 
@@ -39,12 +39,6 @@ public class StorageFragment extends Fragment {
     int productoId, cantidad, isEdit, isDelete;
     Boolean flag = false;
     private Boolean isEnd = false;
-
-    private DataShare shareableInstance;
-
-    public void setShareableInstance(DataShare dataShare){
-        this.shareableInstance = dataShare;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,7 +54,57 @@ public class StorageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
         gridView = rootView.findViewById(R.id.grdInventario);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Products");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Products").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    long numHijos = snapshot.getChildrenCount();
+                    for (int i = 1; i <= numHijos; i++){
+                        mDatabase = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(i));
+                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    int id = Integer.parseInt(snapshot.child("productoId").getValue().toString().trim());
+                                    String image = snapshot.child("image").getValue().toString().trim();
+                                    String nombre = snapshot.child("nombre").getValue().toString();
+                                    String codigo = snapshot.child("codigo").getValue().toString().trim();
+                                    String precio = snapshot.child("precio").getValue().toString().trim();
+                                    int cantidad = Integer.parseInt(snapshot.child("cantidad").getValue().toString().trim());
+                                    String descripcion = snapshot.child("descripcion").getValue().toString();
+                                    String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
+
+                                    ProductModel productModel = new ProductModel(
+                                            id,
+                                            image,
+                                            nombre,
+                                            codigo,
+                                            precio,
+                                            cantidad,
+                                            descripcion,
+                                            usuarioId,
+                                            false
+                                            );
+                                    productModels.add(productModel);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (getArguments() != null) {
             isEdit = getArguments().getInt("editValidate", 0);
@@ -71,11 +115,6 @@ public class StorageFragment extends Fragment {
         }
 
         if (flag){
-            productModels.add(new ProductModel(1, "android.resource://com.example.storageapp/drawable/tornillo", "Tornillo", "PR001", "$200.00", 5, "tornillo de ensamble", "e001", false));
-            productModels.add(new ProductModel(2, "android.resource://com.example.storageapp/drawable/destornillador", "Destornillador tipo pala", "PR002", "$2500.00", 10, "destornillador tipo pala de hierro","e002", false));
-            productModels.add(new ProductModel(3, "android.resource://com.example.storageapp/drawable/wiring", "Cable duplex", "PR003", "$6000.00", 9, "cable duplex 12 para telecomunicaciones.", "e003", false));
-
-
 
             gridAdapter = new GridAdapter(getContext(), productModels);
             gridView.setAdapter(gridAdapter);
