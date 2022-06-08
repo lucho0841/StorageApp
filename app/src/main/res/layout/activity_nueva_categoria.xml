@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:orientation="vertical"
     android:gravity="center">
@@ -26,58 +27,57 @@
             android:orientation="vertical">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tfNombreCategoria"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@null"
-                android:hint="Nombre">
 
+                android:hint="Nombre de la categoría"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:background="@null"
+                app:startIconDrawable="@drawable/ic_baseline_build_24">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtNombreCategoria"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tfcodigoCategoria"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:hint="Código de la categoría"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:background="@null"
-                android:hint="Codigo">
-
+                app:startIconDrawable="@drawable/ic_baseline_qr_code_24">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtCodNuevaCat"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tfDescCategoria"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:background="@null"
                 android:hint="Descripción"
-
-                >
-
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="20dp"
+                app:startIconDrawable="@drawable/ic_baseline_text_snippet_24">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edtDescCategoria"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="textMultiLine"
-                    android:lines="5"
-                    android:maxLines="10"
-                    />
-
+                    android:layout_height="wrap_content"
+                    android:inputType="textAutoComplete"/>
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
         </LinearLayout>
