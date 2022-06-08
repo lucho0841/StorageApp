@@ -6,7 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -26,6 +29,7 @@ import com.example.storageapp.controller.AlertDialogs;
 import com.example.storageapp.controller.UriResources;
 import com.example.storageapp.model.CategoryModel;
 import com.example.storageapp.model.ProductModel;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -46,7 +50,13 @@ import java.util.HashMap;
 public class CreateProductActivity extends AppCompatActivity {
 
     private EditText nombreProd, codigoProd, precioProd, cantidadProd, descripcionProd;
-    String nombreProducto, codigoProducto, precioProducto, descripcionProducto, categoriaProducto, valor, item;
+    String nombreProducto;
+    String codigoProducto;
+    String precioProducto;
+    String descripcionProducto;
+    String categoriaProducto;
+    String valor;
+    String item;
     int cantidadProducto, id = 0;
     private Button btnCrear, btnSelectImage;
     private DatabaseReference mData;
@@ -60,6 +70,7 @@ public class CreateProductActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private StorageReference mStorage;
     private static final int GALLERY_INTENT = 10;
+    boolean isNotUrl = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,7 +169,7 @@ public class CreateProductActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             path = data.getData();
-            valor = UriResources.ObtenerUri(path);
+            //valor = UriResources.ObtenerUri(path);
             imageProduct.setImageURI(path);
         }
     }
@@ -196,23 +207,23 @@ public class CreateProductActivity extends AppCompatActivity {
                     long numHijos = snapshot.getChildrenCount();
                     id = Integer.parseInt(String.valueOf(numHijos)) + 1;
                     filepath = mStorage.child("productImages").child(String.valueOf(id)).child("File"+path.getLastPathSegment());
-                    filepath.putFile(path).addOnSuccessListener(taskSnapshot -> filepath.getDownloadUrl().addOnSuccessListener(uri -> {
-                        HashMap<String, String> hashMap = new HashMap<>();
-                        hashMap.put("link", String.valueOf(uri));
-                        Log.d("INFO", hashMap.get("link"));
-                    }));
-                    product.setProductoId(id);
-                    FirebaseDatabase.getInstance().getReference("Products")
-                            .child(String.valueOf(id))
-                            .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()){
-                                        Toast.makeText(CreateProductActivity.this, "El producto ha sido creado con Éxito!!!", Toast.LENGTH_LONG).show();
-                                        finish();
+                    filepath.putFile(path);
+                    filepath.getDownloadUrl().addOnSuccessListener(uri -> {
+                        valor = String.valueOf(uri);
+                        product.setImage(valor);
+                        product.setProductoId(id);
+                        FirebaseDatabase.getInstance().getReference("Products")
+                                .child(String.valueOf(id))
+                                .setValue(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()){
+                                            Toast.makeText(CreateProductActivity.this, "El producto ha sido creado con Éxito!!!", Toast.LENGTH_LONG).show();
+                                            finish();
+                                        }
                                     }
-                                }
-                            });
+                                });
+                    });
                 }
             }
 
