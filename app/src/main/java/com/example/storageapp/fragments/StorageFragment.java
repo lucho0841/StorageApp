@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -61,47 +62,60 @@ public class StorageFragment extends Fragment {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()){
                         productModels = new ArrayList<>();
-                        long numHijos = snapshot.getChildrenCount();
-                        for (int i = 1; i <= numHijos; i++){
-                            mDatabase = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(i));
-                            mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()){
-                                        int id = Integer.parseInt(snapshot.child("productoId").getValue().toString().trim());
-                                        String image = snapshot.child("image").getValue().toString().trim();
-                                        String nombre = snapshot.child("nombre").getValue().toString();
-                                        String codigo = snapshot.child("codigo").getValue().toString().trim();
-                                        String precio = snapshot.child("precio").getValue().toString().trim();
-                                        int cantidad = Integer.parseInt(snapshot.child("cantidad").getValue().toString().trim());
-                                        String descripcion = snapshot.child("descripcion").getValue().toString();
-                                        String categoria = snapshot.child("categoria").getValue().toString();
-                                        String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
-                                        ProductModel productModel = new ProductModel(
-                                                id,
-                                                image,
-                                                nombre,
-                                                codigo,
-                                                precio,
-                                                cantidad,
-                                                descripcion,
-                                                categoria,
-                                                usuarioId,
-                                                false
-                                        );
-                                        productModels.add(productModel);
+                        mDatabase.child("Products").limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                if (snapshot.exists()){
+                                    String value = snapshot.getValue().toString();
+                                    productoId = Integer.parseInt(value.substring(1, 2));
+                                    for (int i = 1; i <= productoId; i++){
+                                        mDatabase = FirebaseDatabase.getInstance().getReference("Products").child(String.valueOf(i));
+                                        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.exists()){
+                                                    int id = Integer.parseInt(snapshot.child("productoId").getValue().toString().trim());
+                                                    String image = snapshot.child("image").getValue().toString().trim();
+                                                    String nombre = snapshot.child("nombre").getValue().toString();
+                                                    String codigo = snapshot.child("codigo").getValue().toString().trim();
+                                                    String precio = snapshot.child("precio").getValue().toString().trim();
+                                                    int cantidad = Integer.parseInt(snapshot.child("cantidad").getValue().toString().trim());
+                                                    String descripcion = snapshot.child("descripcion").getValue().toString();
+                                                    String categoria = snapshot.child("categoria").getValue().toString();
+                                                    String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
+                                                    ProductModel productModel = new ProductModel(
+                                                            id,
+                                                            image,
+                                                            nombre,
+                                                            codigo,
+                                                            precio,
+                                                            cantidad,
+                                                            descripcion,
+                                                            categoria,
+                                                            usuarioId,
+                                                            false
+                                                    );
+                                                    productModels.add(productModel);
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                     }
+
+                                    gridAdapter = new GridAdapter(getContext(), productModels);
+                                    gridView.setAdapter(gridAdapter);
                                 }
+                            }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            });
-                        }
-
-                        gridAdapter = new GridAdapter(getContext(), productModels);
-                        gridView.setAdapter(gridAdapter);
+                            }
+                        });
                     }
                 }
 

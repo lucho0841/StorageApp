@@ -122,7 +122,7 @@ public class CreateProductActivity extends AppCompatActivity {
                 descripcionProducto = descripcionProd.getText().toString();
                 cantidadProducto = Integer.parseInt(cantidadProd.getText().toString().equals("") ? "0" : cantidadProd.getText().toString());
                 categoriaProducto = edtSelectCategory.getText().toString();
-                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto, mAuth.getCurrentUser().getUid() == null ? "" : mAuth.getCurrentUser().getUid(), false);
+                product = new ProductModel(id, valor, nombreProducto, codigoProducto, precioProducto, cantidadProducto, descripcionProducto, categoriaProducto.isEmpty() ? "Sin categoría" : categoriaProducto, mAuth.getCurrentUser().getUid() == null ? "" : mAuth.getCurrentUser().getUid(), false);
                 crearProductoBD(product);
             }
         });
@@ -175,7 +175,7 @@ public class CreateProductActivity extends AppCompatActivity {
     }
 
     private void crearProductoBD(ProductModel product){
-        if (nombreProducto.isEmpty() && codigoProducto.isEmpty() && precioProducto.isEmpty()){
+        if (nombreProducto.isEmpty()){
             nombreProd.setError("El nombre es requerido");
             nombreProd.requestFocus();
             return;

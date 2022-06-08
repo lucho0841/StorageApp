@@ -1,96 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:id="@+id/scrollView"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_gravity="center"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="10dp">
+        android:layout_margin="20dp">
 
-        <ImageView
-            android:src="@drawable/sinimagen"
-            android:id="@+id/imgProductEdit"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
+
+            <ImageView
+                android:src="@drawable/sinimagen"
+                android:id="@+id/imgProductEdit"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"/>
 
 
-        <Button
-            android:id="@+id/btnEditarImagenProducto"
+            <Button
+                android:id="@+id/btnEditarImagenProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_adjuntar"
+                android:drawableLeft="@drawable/ic_baseline_attach_file_24"
+                android:layout_marginRight="5dp"
+                />
+        </LinearLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="Nombre del producto"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:background="@null"
+            app:startIconDrawable="@drawable/ic_baseline_build_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNombreProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoComplete"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Código del producto"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:background="@null"
+            app:startIconDrawable="@drawable/ic_baseline_qr_code_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCodigoProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoComplete"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:background="@null"
+            android:hint="Cantidad"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            app:startIconDrawable="@drawable/ic_baseline_123_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtCantidadProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:background="@null"
+            android:hint="Precio"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            app:startIconDrawable="@drawable/ic_baseline_attach_money_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtPrecioProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:background="@null"
+            android:hint="Descripción"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            app:startIconDrawable="@drawable/ic_baseline_text_snippet_24">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtDescripcionProducto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textAutoComplete"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Seleccionar Categoría"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            app:startIconDrawable="@drawable/ic_baseline_category_24"
+            >
+
+
+
+            <AutoCompleteTextView
+                android:id="@+id/edtEditSelectCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/button_adjuntar"
-            android:drawableLeft="@drawable/ic_baseline_attach_file_24"
-            android:layout_marginRight="5dp"
-            />
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btnEditarProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar"
+                android:layout_marginRight="5dp"
+                />
+
+            <Button
+                android:id="@+id/btnEliminarProducto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="Eliminar"
+                android:layout_marginRight="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+
     </LinearLayout>
-
-    <EditText
-
-        android:id="@+id/edtNombreProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de Producto"
-        android:textAlignment="center"/>
-
-    <EditText
-
-        android:id="@+id/edtCodigoProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Código de Producto"
-        android:textAlignment="center"/>
-
-    <EditText
-        android:id="@+id/edtPrecioProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Precio de Producto"
-        android:textAlignment="center" />
-    <EditText
-        android:id="@+id/edtCantidadProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="Cantidad de Producto"
-        android:textAlignment="center"
-        android:inputType="number"/>
-
-    <EditText
-        android:id="@+id/edtDescripcionProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:hint="Descripción de Producto"
-        android:textAlignment="center" />
-    <LinearLayout
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnEditarProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Guardar"
-            android:layout_marginRight="5dp"
-            />
-        <Button
-            android:id="@+id/btnEliminarProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/red"
-            android:text="Eliminar"
-            android:layout_marginRight="5dp"
-            />
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>
