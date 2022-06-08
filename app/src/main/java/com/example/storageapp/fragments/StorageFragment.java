@@ -79,7 +79,7 @@ public class StorageFragment extends Fragment {
                                         String usuarioId = snapshot.child("usuarioId").getValue().toString().trim();
                                         ProductModel productModel = new ProductModel(
                                                 id,
-                                                "android.resource://com.example.storageapp/drawable/tornillo",
+                                                image,
                                                 nombre,
                                                 codigo,
                                                 precio,
@@ -135,10 +135,17 @@ public class StorageFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                gridAdapter.getFilter().filter(s);
+                if (productModels.size() > 0){
+                    gridAdapter.getFilter().filter(s);
+                }
                 return false;
             }
         });
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
     }
 }

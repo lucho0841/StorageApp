@@ -2,6 +2,8 @@ package com.example.storageapp.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
@@ -17,7 +19,11 @@ import android.widget.TextView;
 import com.example.storageapp.model.ProductModel;
 import com.example.storageapp.views.EditProductActivity;
 import com.example.storageapp.R;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +72,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
         txtPrice = convertView.findViewById(R.id.txtPrice);
         btnEditar = convertView.findViewById(R.id.btnEditProduct);
 
-        imageProduct.setImageURI(Uri.parse(filterProducts.get(position).getImage()));
+        Picasso.get().load(filterProducts.get(position).getImage()).into(imageProduct);
         txtName.setText("Nombre: " + filterProducts.get(position).getNombre());
         txtCode.setText("Código: " + filterProducts.get(position).getCodigo());
         txtPrice.setText("Precio: " + filterProducts.get(position).getPrecio());
@@ -78,7 +84,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
                 intent.putExtra("name", filterProducts.get(position).getNombre());
                 intent.putExtra("codigo", filterProducts.get(position).getCodigo());
                 intent.putExtra("precio", filterProducts.get(position).getPrecio());
-                intent.putExtra("imagenActual", filterProducts.get(position).getImage().toString());
+                intent.putExtra("imagenActual", filterProducts.get(position).getImage());
                 intent.putExtra("cantidad", filterProducts.get(position).getCantidad());
                 intent.putExtra("descripcion", filterProducts.get(position).getDescripcion());
 
