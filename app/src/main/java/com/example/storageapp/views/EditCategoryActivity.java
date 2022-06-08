@@ -15,10 +15,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.storageapp.R;
 import com.example.storageapp.controller.Dataholder;
 import com.example.storageapp.model.CategoryModel;
+import com.example.storageapp.model.ProductModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import org.w3c.dom.Text;
 
@@ -26,11 +37,16 @@ import java.util.ArrayList;
 
 public class EditCategoryActivity extends AppCompatActivity {
 
-    String nombre, descripcion;
-    int pos;
-    EditText nuevoNombreCat , nuevoDescCat;
+    String nombre, descripcion, nombreCategoriaEdt, codigoCategoriaEdt,descripcionCategoria;
+    int pos, categoriaId;
+    EditText nuevoNombreCat , nuevoDescCat,edtNombreCategoria, edtCodigoCategoria, edtDescripcionCategoria;
     Button btnEditarCategoria;
     private ArrayList<CategoryModel> categories = Dataholder.getInstance().categories;
+    private FirebaseAuth mAuth;
+    String nombreCat, codigoCat,descripcionCat;
+    int codigoCatId;
+    private DatabaseReference mDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,28 +59,68 @@ public class EditCategoryActivity extends AppCompatActivity {
 
         nuevoNombreCat = (EditText) findViewById(R.id.nuevoNombreCategoria);
         nuevoDescCat = (EditText) findViewById(R.id.nuevoDescCategoria);
+        nombreCat= getIntent().getStringExtra("nombre");
+        //codigoCat= getIntent().getStringExtra("codigo");
+        descripcionCat= getIntent().getStringExtra("descripcion");
 
-        nuevoNombreCat.setText(nombre, TextView.BufferType.EDITABLE);
-        nuevoDescCat.setText(descripcion, TextView.BufferType.EDITABLE);
+        nuevoNombreCat.setText(nombreCat, TextView.BufferType.EDITABLE);
+        nuevoDescCat.setText(descripcionCat, TextView.BufferType.EDITABLE);
+        mAuth = FirebaseAuth.getInstance();
+
 
         btnEditarCategoria = (Button) findViewById(R.id.btnEditarCategoria);
         btnEditarCategoria.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nuevoNombre = nuevoNombreCat.getText().toString();
-                String nuevoDescripcion = nuevoDescCat.getText().toString();
+                edtNombreCategoria = (EditText) findViewById(R.id.edtNombreCategoria);
+                nombreCategoriaEdt = edtNombreCategoria.getText().toString();
 
-                if (nombre.isEmpty()) {
-                    nuevoNombreCat.setError("El nombre es requerido");
-                    nuevoNombreCat.requestFocus();
-                    return;
-                }
+                edtDescripcionCategoria = (EditText) findViewById(R.id.nuevoDescCategoria);
+                descripcionCategoria = edtDescripcionCategoria.getText().toString();
 
-                categories.get(pos).setNombre(nuevoNombre);
-                categories.get(pos).setDescripcion(nuevoDescripcion);
+                CategoryModel category = new CategoryModel(mAuth.getCurrentUser().getUid(), codigoCategoriaEdt, nombreCategoriaEdt, descripcionCategoria,codigoCatId );
+                editarCategoryBD(category);
+
+                Intent intent = new Intent(EditCategoryActivity.this, InventarioActivity.class);
+                startActivity(intent);
                 finish();
             }
+
         });
+
+
+    }
+    private void editarCategoryBD(CategoryModel category){
+        if (nombreCategoriaEdt.isEmpty()){
+            edtNombreCategoria.setError("El nombre es requerido");
+            edtNombreCategoria.requestFocus();
+            return;
+        }
+
+        if (descripcionCategoria.isEmpty()) {
+            edtDescripcionCategoria.setError("La descripción es requerida");
+            edtDescripcionCategoria.requestFocus();
+            return;
+        }
+
+        /*mDatabase = FirebaseDatabase.getInstance().getReference("Category").child(String.valueOf(codigoCatId))
+                .setValue(category) {
+
+
+
+                    @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Toast.makeText(EditCategoryActivity.this, "El producto ha sido modificado con Éxito!!!", Toast.LENGTH_LONG).show();
+                                    finish();
+                                }
+                            }
+                        });
+
+*/
+
+
+
 
     }
 

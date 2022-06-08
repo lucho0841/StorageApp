@@ -1,6 +1,7 @@
 package com.example.storageapp.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.storageapp.R;
 import com.example.storageapp.model.CategoryModel;
+import com.example.storageapp.views.EditCategoryActivity;
 
 import java.util.List;
 
@@ -53,6 +55,18 @@ public class CategoryAdapter extends BaseAdapter {
             txtName.setText("nombre: " + categoryModels.get(position).getNombre());
             txtCodigo.setText("Código: " + categoryModels.get(position).getCodigo());
 
+            btnEditCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, EditCategoryActivity.class);
+                    intent.putExtra("nombre", categoryModels.get(position).getNombre());
+                    intent.putExtra("codigo", categoryModels.get(position).getCodigo());
+                    intent.putExtra("descripcion", categoryModels.get(position).getDescripcion());
+                    intent.putExtra("categoryId", categoryModels.get(position).getCategoriaId());
+                    context.startActivity(intent);
+
+                }
+            });
         }
         return convertView;
     }
