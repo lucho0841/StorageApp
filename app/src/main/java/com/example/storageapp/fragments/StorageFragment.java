@@ -44,18 +44,9 @@ public class StorageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        flag = true;
-        productModels = new ArrayList<>();
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
-        gridView = rootView.findViewById(R.id.grdInventario);
-
-        if (flag){
+        if (!flag){
+            productModels = new ArrayList<>();
             mDatabase = FirebaseDatabase.getInstance().getReference();
             mDatabase.child("Products").addValueEventListener(new ValueEventListener() {
                 @Override
@@ -124,8 +115,16 @@ public class StorageFragment extends Fragment {
 
                 }
             });
-            flag = false;
+            flag = true;
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_storage, container, false);
+        gridView = rootView.findViewById(R.id.grdInventario);
 
         setHasOptionsMenu(true);
 
