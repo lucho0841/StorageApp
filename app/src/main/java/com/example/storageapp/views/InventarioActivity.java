@@ -46,6 +46,7 @@ public class InventarioActivity extends AppCompatActivity {
     private static final String SHARE_PREFERENCES = "share.preference.user";
     private static final String PREFERENCE_ESTADO_SESION = "estado.sesion";
     private AlertDialog.Builder cerrarSesionDialog;
+    private Fragment currentFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,11 +158,26 @@ public class InventarioActivity extends AppCompatActivity {
 
     }
 
+    private Fragment loadFragment(Fragment newFragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_layout, newFragment,newFragment.getClass().getName())
+                .addToBackStack("F_MAIN")
+                .commit();
+        currentFragment = newFragment;
+        return newFragment;
+    }
+
     private void ReplaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+        if (currentFragment == null) {
+            //carga del primer fragment justo en la carga inicial de la app
+            loadFragment(fragment);
+        } else if (!currentFragment.getClass().getName().equalsIgnoreCase(fragment.getClass().getName())) {
+            //currentFragment no concide con newFragment
+            loadFragment(fragment);
+
+        } else {
+            //currentFragment es igual a newFragment
+        }
     }
 
     public static final Uri getUriToResource(@NonNull Context context, @AnyRes int resId) throws Resources.NotFoundException {
