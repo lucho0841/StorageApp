@@ -87,6 +87,7 @@ public class GridAdapter extends BaseAdapter implements Filterable {
                 intent.putExtra("imagenActual", filterProducts.get(position).getImage());
                 intent.putExtra("cantidad", filterProducts.get(position).getCantidad());
                 intent.putExtra("descripcion", filterProducts.get(position).getDescripcion());
+                intent.putExtra("id", filterProducts.get(position).getProductoId());
 
                 context.startActivity(intent);
 
